@@ -9,7 +9,7 @@ public class RingBuffer {
 	}
 	
 	int size() {
-		return 0;
+		return ringBuffer.length;
 	}
 	
 	boolean isEmpty() {
