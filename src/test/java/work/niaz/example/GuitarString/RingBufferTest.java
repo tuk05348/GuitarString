@@ -1,5 +1,6 @@
 package work.niaz.example.GuitarString;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -9,12 +10,12 @@ import org.junit.Test;
  */
 public class RingBufferTest 
 {
-    /**
-     * Rigorous Test :-)
-     */
+	int capacity = 10;
+	RingBuffer ringbuffer = new RingBuffer(capacity);
+
     @Test
-    public void shouldAnswerWithTrue()
+    public void testSize()
     {
-        assertTrue( true );
+        assertEquals("Size of buffer should equal capacity", capacity, ringbuffer.size());
     }
 }
