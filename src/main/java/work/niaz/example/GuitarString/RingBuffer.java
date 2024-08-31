@@ -32,6 +32,6 @@ public class RingBuffer {
 	}
 	
 	double peek() {
-		return 1;
+		return this.ringBuffer[this.first];
 	}
 }
