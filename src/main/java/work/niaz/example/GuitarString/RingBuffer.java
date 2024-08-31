@@ -3,13 +3,16 @@ package work.niaz.example.GuitarString;
 public class RingBuffer {
 	
 	private double[] ringBuffer;
+	private int first, last;
 	
 	public RingBuffer(int capacity) {
 		this.ringBuffer = new double[capacity];
+		this.first = 0;
+		this.last = 0;
 	}
 	
 	int size() {
-		return ringBuffer.length;
+		return 0;
 	}
 	
 	boolean isEmpty() {
@@ -29,6 +32,6 @@ public class RingBuffer {
 	}
 	
 	double peek() {
-		return 0;
+		return 1;
 	}
 }
