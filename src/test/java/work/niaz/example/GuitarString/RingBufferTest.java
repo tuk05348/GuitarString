@@ -34,5 +34,12 @@ public class RingBufferTest
 		ringbuffer.enqueue(1);
 		assertEquals("After adding element in empty ring, first element should be 1", 1, ringbuffer.peek(), 0.0001);
 	}
+	
+	@Test
+	public void testDequeueReturn() {
+		ringbuffer.enqueue(1);
+		double item = ringbuffer.dequeue();
+		assertEquals("Returned item should equal item that was placed at front", 1, item, 0.0001);
+	}
 
 }
