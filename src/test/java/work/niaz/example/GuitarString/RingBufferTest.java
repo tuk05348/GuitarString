@@ -28,4 +28,11 @@ public class RingBufferTest
 	public void testPeek() {
 		assertEquals("First element returned should equal zero for an empty ring buffer", 0, ringbuffer.peek(), 0.0001);
 	}
+	
+	@Test
+	public void testEnqueue() {
+		ringbuffer.enqueue(1);
+		assertEquals("After adding element in empty ring, first element should be 1", 1, ringbuffer.peek(), 0.0001);
+	}
+
 }
