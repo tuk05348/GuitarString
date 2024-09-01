@@ -11,7 +11,7 @@ import org.junit.Test;
 public class RingBufferTest 
 {
 	int capacity = 10;
-	RingBuffer ringbuffer = new RingBuffer(capacity);
+	RingBuffer ringBuffer = new RingBuffer(capacity);
 
     /*@Test
     public void testSize()
@@ -26,20 +26,28 @@ public class RingBufferTest
 	
 	@Test
 	public void testPeek() {
-		assertEquals("First element returned should equal zero for an empty ring buffer", 0, ringbuffer.peek(), 0.0001);
+		assertEquals("First element returned should equal zero for an empty ring buffer", 0, ringBuffer.peek(), 0.0001);
 	}
 	
 	@Test
 	public void testEnqueue() {
-		ringbuffer.enqueue(1);
-		assertEquals("After adding element in empty ring, first element should be 1", 1, ringbuffer.peek(), 0.0001);
+		ringBuffer.enqueue(1);
+		assertEquals("After adding element in empty ring, first element should be 1", 1, ringBuffer.peek(), 0.0001);
 	}
 	
 	@Test
 	public void testDequeueReturn() {
-		ringbuffer.enqueue(1);
-		double item = ringbuffer.dequeue();
+		ringBuffer.enqueue(1);
+		double item = ringBuffer.dequeue();
 		assertEquals("Returned item should equal item that was placed at front", 1, item, 0.0001);
+	}
+	
+	@Test
+	public void testDequeue() {
+		ringBuffer.enqueue(1);
+		ringBuffer.enqueue(2);
+		ringBuffer.dequeue();
+		assertEquals("First element should be 2 after dequeue", 2, ringBuffer.peek(), 0.0001);
 	}
 
 }

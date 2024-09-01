@@ -29,7 +29,7 @@ public class RingBuffer {
 	}
 	
 	double dequeue() {
-		return 0;
+		return ringBuffer[this.first];
 	}
 	
 	double peek() {
