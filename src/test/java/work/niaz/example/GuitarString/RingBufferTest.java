@@ -13,12 +13,15 @@ public class RingBufferTest
 	int capacity = 10;
 	RingBuffer ringBuffer = new RingBuffer(capacity);
 
-    /*@Test
+    @Test
     public void testSize()
     {
-        assertEquals("Size of buffer should equal capacity", capacity, ringbuffer.size());
+    	for(int i=1; i<6; i++) {
+    		ringBuffer.enqueue(i);
+    	}
+        assertEquals("Size of buffer should equal number of items inserted", 5, ringBuffer.size());
     }
-    
+    /*
     @Test
     public void testIsEmpty() {
     	assertEquals("Last buffer index should be ", capacity, capacity);
