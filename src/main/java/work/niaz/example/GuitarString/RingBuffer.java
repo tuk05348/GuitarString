@@ -24,8 +24,14 @@ public class RingBuffer {
 	}
 	
 	void enqueue(double x) {
-		ringBuffer[last] = x;
-		this.last++;
+		if(last == ringBuffer.length) {
+			last = 0;
+			ringBuffer[last] = x;
+		}
+		else {
+			ringBuffer[last] = x;
+			last++;
+		}
 	}
 	
 	double dequeue() {

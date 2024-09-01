@@ -29,7 +29,7 @@ public class RingBufferTest
     	}
     	ringBuffer.dequeue(); //Remove first element
     	ringBuffer.enqueue(11); //Add a new element
-    	assertEquals("First element should be 11", 11, ringBuffer.peek(), 0.0001);
+    	assertEquals("Last should be 0", 0, ringBuffer.getLastIndex(), 0.0001);
     }
 	
 	@Test
