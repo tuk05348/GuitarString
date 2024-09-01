@@ -40,7 +40,7 @@ public class RingBuffer {
 	}
 	
 	double peek() {
-		return this.ringBuffer[first];
+		return ringBuffer[first];
 	}
 	
 	int getFirstIndex() {

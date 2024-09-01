@@ -31,6 +31,24 @@ public class RingBufferTest
     	ringBuffer.enqueue(11); //Add a new element
     	assertEquals("Last should be 0", 0, ringBuffer.getLastIndex(), 0.0001);
     }
+    
+    @Test
+    public void testCyclicWrapAroundFirst() {
+    	for(int i=0; i<10; i++) { //Add 10 elements
+    		ringBuffer.enqueue(i);
+    	}
+    	for(int i=0; i<9; i++) { //Remove first 9 elements
+    		ringBuffer.dequeue();
+    	}
+    	for(int i=0; i<2; i++) { //Add 2 more elements which wrap around
+    		ringBuffer.enqueue(i);
+    	}
+    	for(int i=0; i<2; i++) { //Remove 2 elements, first should wrap around
+    		ringBuffer.dequeue();
+    	}
+    	assertEquals("Element at front should equal 1 because of wrap around", 1, ringBuffer.peek(), 0.0001);
+    	
+    }
 	
 	@Test
 	public void testPeek() {
