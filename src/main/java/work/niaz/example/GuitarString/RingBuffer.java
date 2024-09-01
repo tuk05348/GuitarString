@@ -6,13 +6,13 @@ public class RingBuffer {
 	private int first, last;
 	
 	public RingBuffer(int capacity) {
-		this.ringBuffer = new double[capacity];
-		this.first = 0;
-		this.last = 0;
+		ringBuffer = new double[capacity];
+		first = 0;
+		last = 0;
 	}
 	
 	int size() {
-		return 0;
+		return last - first;
 	}
 	
 	boolean isEmpty() {
@@ -24,16 +24,16 @@ public class RingBuffer {
 	}
 	
 	void enqueue(double x) {
-		ringBuffer[this.last] = x;
+		ringBuffer[last] = x;
 		this.last++;
 	}
 	
 	double dequeue() {
-		this.first++;
-		return ringBuffer[this.first-1];
+		first++;
+		return ringBuffer[first-1];
 	}
 	
 	double peek() {
-		return this.ringBuffer[this.first];
+		return this.ringBuffer[first];
 	}
 }
