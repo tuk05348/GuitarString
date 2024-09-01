@@ -35,8 +35,14 @@ public class RingBuffer {
 	}
 	
 	double dequeue() {
-		first++;
-		return ringBuffer[first-1];
+		if(first == ringBuffer.length) {
+			first = 0;
+			return ringBuffer[ringBuffer.length - 1];
+		}
+		else {
+			first++;
+			return ringBuffer[first-1];
+		}
 	}
 	
 	double peek() {
