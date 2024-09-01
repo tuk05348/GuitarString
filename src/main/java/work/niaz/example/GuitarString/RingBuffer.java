@@ -36,4 +36,12 @@ public class RingBuffer {
 	double peek() {
 		return this.ringBuffer[first];
 	}
+	
+	int getFirstIndex() {
+		return first;
+	}
+	
+	int getLastIndex() {
+		return last;
+	}
 }

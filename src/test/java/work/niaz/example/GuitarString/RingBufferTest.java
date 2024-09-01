@@ -21,11 +21,16 @@ public class RingBufferTest
     	}
         assertEquals("Size of buffer should equal number of items inserted", 5, ringBuffer.size());
     }
-    /*
+    
     @Test
-    public void testIsEmpty() {
-    	assertEquals("Last buffer index should be ", capacity, capacity);
-    }*/
+    public void testCyclicWrapAroundLast() {
+    	for(int i=0; i<10; i++) { //Fill up buffer
+    		ringBuffer.enqueue(i);
+    	}
+    	ringBuffer.dequeue(); //Remove first element
+    	ringBuffer.enqueue(11); //Add a new element
+    	assertEquals("First element should be 11", 11, ringBuffer.peek(), 0.0001);
+    }
 	
 	@Test
 	public void testPeek() {
