@@ -32,8 +32,11 @@ public class RingBuffer {
 		return false;
 	}
 	
-	void enqueue(double x) {
-		if(last == ringBuffer.length) {
+	void enqueue(double x) throws FullRingBufferException {
+		if(this.isFull()) {
+			throw new FullRingBufferException("Buffer is full.");
+		}
+		else if(last == ringBuffer.length) {
 			last = 0;
 			ringBuffer[last] = x;
 		}
