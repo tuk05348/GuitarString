@@ -12,6 +12,9 @@ public class RingBuffer {
 	}
 	
 	int size() {
+		if(first > last) {
+			return ringBuffer.length - first + last + 1;
+		}
 		return last - first;
 	}
 	
