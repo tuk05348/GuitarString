@@ -143,5 +143,11 @@ public class RingBufferTest
     	FullRingBufferException exception = assertThrows(FullRingBufferException.class, () -> ringBuffer.enqueue(11));
     	assertEquals("Buffer is full.", exception.getMessage());
     }
+    
+    @Test
+    public void testDequeueOnFull() throws EmptyRingBufferException {
+    	EmptyRingBufferException exception = assertThrows(EmptyRingBufferException.class, () -> ringBuffer.dequeue());
+    	assertEquals("Buffer is empty.", exception.getMessage());
+    }
 
 }
