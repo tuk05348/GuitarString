@@ -133,5 +133,15 @@ public class RingBufferTest
     	ringBuffer.dequeue();
     	assertEquals(false, ringBuffer.isFull(), "Ringbuffer should not be full");
     }
+    
+    @Test
+    public void testEnqueueOnFull() {
+    	for(int i=0; i<10; i++) {
+    		ringBuffer.enqueue(i);
+    	}
+    	
+    	FullRingBufferException exception = assertThrows(FullRingBufferException.class, () -> ringBuffer.enqueue(11));
+    	assertEquals("Buffer is full.", exception.getMessage());
+    }
 
 }
