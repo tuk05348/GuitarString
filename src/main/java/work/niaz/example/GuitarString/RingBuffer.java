@@ -26,7 +26,10 @@ public class RingBuffer {
 	}
 	
 	boolean isFull() {
-		return true;
+		if(this.size() == ringBuffer.length) {
+			return true;
+		}
+		return false;
 	}
 	
 	void enqueue(double x) {
