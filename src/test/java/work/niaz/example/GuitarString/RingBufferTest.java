@@ -100,5 +100,14 @@ public class RingBufferTest
     	}
     	assertEquals("Ringbuffer should not be empty", false, ringBuffer.isEmpty());
     }
+    
+    @Test
+    public void testIsFull() {
+    	for(int i=0; i<10; i++) {
+    		ringBuffer.enqueue(i);
+    	}
+    	ringBuffer.dequeue();
+    	assertEquals("Ringbuffer should not be full", false, ringBuffer.isFull());
+    }
 
 }

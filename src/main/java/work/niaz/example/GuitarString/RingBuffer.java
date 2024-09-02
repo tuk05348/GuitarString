@@ -26,7 +26,7 @@ public class RingBuffer {
 	}
 	
 	boolean isFull() {
-		return false;
+		return true;
 	}
 	
 	void enqueue(double x) {
