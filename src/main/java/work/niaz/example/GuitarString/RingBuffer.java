@@ -19,7 +19,7 @@ public class RingBuffer {
 	}
 	
 	boolean isEmpty() {
-		return false;
+		return true;
 	}
 	
 	boolean isFull() {

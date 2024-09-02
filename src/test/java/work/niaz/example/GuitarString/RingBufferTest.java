@@ -89,5 +89,16 @@ public class RingBufferTest
     	}
     	assertEquals("Size should equal four.", 4, ringBuffer.size(), 0.0001);
     }
+    
+    @Test
+    public void testIsEmpty() {
+    	for(int i=0; i<10; i++) { //add 10 elements
+    		ringBuffer.enqueue(i);
+    	}
+    	for(int i=0; i<9; i++) { //remove 9 elements
+    		ringBuffer.dequeue();
+    	}
+    	assertEquals("Ringbuffer should not be empty", false, ringBuffer.isEmpty());
+    }
 
 }
