@@ -46,8 +46,11 @@ public class RingBuffer {
 		}
 	}
 	
-	double dequeue() {
-		if(first == ringBuffer.length) {
+	double dequeue() throws EmptyRingBufferException {
+		if(this.isEmpty()) {
+			throw new EmptyRingBufferException("Buffer is empty.");
+		}
+		else if(first == ringBuffer.length) {
 			first = 0;
 			return ringBuffer[ringBuffer.length - 1];
 		}

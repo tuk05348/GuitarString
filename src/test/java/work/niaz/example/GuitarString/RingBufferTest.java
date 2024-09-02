@@ -58,14 +58,14 @@ public class RingBufferTest
 	}
 	
 	@Test
-	public void testDequeueReturn() throws FullRingBufferException {
+	public void testDequeueReturn() throws FullRingBufferException, EmptyRingBufferException {
 		ringBuffer.enqueue(1);
 		double item = ringBuffer.dequeue();
 		assertEquals(1, item, 0.0001, "Returned item should equal item that was placed at front");
 	}
 	
 	@Test
-	public void testDequeue() throws FullRingBufferException {
+	public void testDequeue() throws FullRingBufferException, EmptyRingBufferException {
 		ringBuffer.enqueue(1);
 		ringBuffer.enqueue(2);
 		ringBuffer.dequeue();
@@ -73,7 +73,7 @@ public class RingBufferTest
 	}
 	  
     @Test
-    public void testCyclicWrapAroundLast() throws FullRingBufferException {
+    public void testCyclicWrapAroundLast() throws FullRingBufferException, EmptyRingBufferException {
     	for(int i=0; i<10; i++) { //Fill up buffer
     		ringBuffer.enqueue(i);
     	}
@@ -83,7 +83,7 @@ public class RingBufferTest
     }
     
     @Test
-    public void testCyclicWrapAroundFirst() throws FullRingBufferException {
+    public void testCyclicWrapAroundFirst() throws FullRingBufferException, EmptyRingBufferException {
     	for(int i=0; i<10; i++) { //Add 10 elements
     		ringBuffer.enqueue(i);
     	}
@@ -101,7 +101,7 @@ public class RingBufferTest
     }
     
     @Test
-    public void testCyclicWrapAroundSize() throws FullRingBufferException {
+    public void testCyclicWrapAroundSize() throws FullRingBufferException, EmptyRingBufferException {
     	for(int i=0; i<10; i++) { //Add 10 elements
     		ringBuffer.enqueue(i);
     	}
@@ -115,7 +115,7 @@ public class RingBufferTest
     }
     
     @Test
-    public void testIsEmpty() throws FullRingBufferException {
+    public void testIsEmpty() throws FullRingBufferException, EmptyRingBufferException {
     	for(int i=0; i<10; i++) { //add 10 elements
     		ringBuffer.enqueue(i);
     	}
@@ -126,7 +126,7 @@ public class RingBufferTest
     }
     
     @Test
-    public void testIsFull() throws FullRingBufferException {
+    public void testIsFull() throws FullRingBufferException, EmptyRingBufferException {
     	for(int i=0; i<10; i++) {
     		ringBuffer.enqueue(i);
     	}
