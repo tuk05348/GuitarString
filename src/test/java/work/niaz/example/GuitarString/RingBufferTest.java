@@ -22,6 +22,32 @@ public class RingBufferTest
         assertEquals("Size of buffer should equal number of items inserted", 5, ringBuffer.size());
     }
     
+	@Test
+	public void testPeek() {
+		assertEquals("First element returned should equal zero for an empty ring buffer", 0, ringBuffer.peek(), 0.0001);
+	}
+	
+	@Test
+	public void testEnqueue() {
+		ringBuffer.enqueue(1);
+		assertEquals("After adding element in empty ring, first element should be 1", 1, ringBuffer.peek(), 0.0001);
+	}
+	
+	@Test
+	public void testDequeueReturn() {
+		ringBuffer.enqueue(1);
+		double item = ringBuffer.dequeue();
+		assertEquals("Returned item should equal item that was placed at front", 1, item, 0.0001);
+	}
+	
+	@Test
+	public void testDequeue() {
+		ringBuffer.enqueue(1);
+		ringBuffer.enqueue(2);
+		ringBuffer.dequeue();
+		assertEquals("First element should be 2 after dequeue", 2, ringBuffer.peek(), 0.0001);
+	}
+	  
     @Test
     public void testCyclicWrapAroundLast() {
     	for(int i=0; i<10; i++) { //Fill up buffer
@@ -49,31 +75,19 @@ public class RingBufferTest
     	assertEquals("Element at front should equal 1 because of wrap around", 1, ringBuffer.peek(), 0.0001);
     	
     }
-	
-	@Test
-	public void testPeek() {
-		assertEquals("First element returned should equal zero for an empty ring buffer", 0, ringBuffer.peek(), 0.0001);
-	}
-	
-	@Test
-	public void testEnqueue() {
-		ringBuffer.enqueue(1);
-		assertEquals("After adding element in empty ring, first element should be 1", 1, ringBuffer.peek(), 0.0001);
-	}
-	
-	@Test
-	public void testDequeueReturn() {
-		ringBuffer.enqueue(1);
-		double item = ringBuffer.dequeue();
-		assertEquals("Returned item should equal item that was placed at front", 1, item, 0.0001);
-	}
-	
-	@Test
-	public void testDequeue() {
-		ringBuffer.enqueue(1);
-		ringBuffer.enqueue(2);
-		ringBuffer.dequeue();
-		assertEquals("First element should be 2 after dequeue", 2, ringBuffer.peek(), 0.0001);
-	}
+    
+    @Test
+    public void testCyclicWrapAroundSize() {
+    	for(int i=0; i<10; i++) { //Add 10 elements
+    		ringBuffer.enqueue(i);
+    	}
+    	for(int i=0; i<8; i++) { //Remove first 8 elements
+    		ringBuffer.dequeue();
+    	}
+    	for(int i=0; i<2; i++) { //Add 2 more elements which wrap around
+    		ringBuffer.enqueue(i);
+    	}
+    	assertEquals("Size should equal four.", 4, ringBuffer.size(), 0.0001);
+    }
 
 }
