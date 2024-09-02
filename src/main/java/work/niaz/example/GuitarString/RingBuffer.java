@@ -19,7 +19,10 @@ public class RingBuffer {
 	}
 	
 	boolean isEmpty() {
-		return true;
+		if(this.size() == 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	boolean isFull() {
