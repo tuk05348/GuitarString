@@ -36,7 +36,7 @@ public class GuitarString {
 	}
 	
 	double sample() {
-		return 0;
+		return ringBuffer.peek();
 	}
 	
 	int time() {
