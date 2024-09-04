@@ -11,13 +11,14 @@ public class GuitarString {
 	private RingBuffer ringBuffer;
 	private int simTime;
 
-	public GuitarString(double frequency) {
+	public GuitarString(double frequency) { //create a new GuitarString with a given frequency
+		//divide the sampling rate by frequency and round up to the nearest integer
 		ringBuffer = new RingBuffer((int) Math.ceil(samplingRate/frequency));
 	}
 	
-	public GuitarString(double[] init) {
-		ringBuffer = new RingBuffer(init.length);
-		for(int i=0; i<init.length; i++) {
+	public GuitarString(double[] init) { //create a new GuitarString with a given array
+		ringBuffer = new RingBuffer(init.length); //create ring buffer
+		for(int i=0; i<init.length; i++) { //initialize ring buffer with the array
 			try {
 				ringBuffer.enqueue(init[i]);
 			} catch (FullRingBufferException e) {
