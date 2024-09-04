@@ -11,8 +11,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 /**
- * Unit test for simple App.
+ * Unit tests for the Ring Buffer API.
  */
+
 public class RingBufferTest 
 {
 	int capacity = 10;
@@ -74,12 +75,15 @@ public class RingBufferTest
 	  
     @Test
     public void testCyclicWrapAroundLast() throws FullRingBufferException, EmptyRingBufferException {
-    	for(int i=0; i<10; i++) { //Fill up buffer
+    	for(int i=0; i<10; i++) { //Fill up buffer +10
     		ringBuffer.enqueue(i);
     	}
-    	ringBuffer.dequeue(); //Remove first element
-    	ringBuffer.enqueue(11); //Add a new element
-    	assertEquals(0, ringBuffer.getLastIndex(), 0.0001, "Last should be 0");
+    	ringBuffer.dequeue(); //Remove first element (0)
+    	ringBuffer.enqueue(11); //Add a new element +1
+    	for(int i=0; i<9; i++) { //-10
+    		ringBuffer.dequeue();
+    	}
+    	assertEquals(11, ringBuffer.peek(), 0.0001, "First element should be 11");
     }
     
     @Test
