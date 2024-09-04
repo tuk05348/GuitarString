@@ -12,11 +12,18 @@ public class GuitarString {
 	private int simTime;
 
 	public GuitarString(double frequency) {
-		
+		ringBuffer = new RingBuffer((int) Math.ceil(samplingRate/frequency));
 	}
 	
 	public GuitarString(double[] init) {
-		
+		ringBuffer = new RingBuffer(init.length);
+		for(int i=0; i<init.length; i++) {
+			try {
+				ringBuffer.enqueue(init[i]);
+			} catch (FullRingBufferException e) {
+				System.out.println("Buffer is full, unable to enqueue to buffer.");;
+			}
+		}
 	}
 	
 	void pluck() {
