@@ -90,10 +90,10 @@ public class RingBufferTest
 	  
     @Test
     public void testCyclicWrapAroundLast() {
-    	enqueueMultiplier(10); //add 10 elements
-    	ringBuffer.dequeue(); //remove an element from the front
-    	ringBuffer.enqueue(11); //add a new element to the front
-    	dequeueMultiplier(9); //remove 9 elements, only element remaining should be the front element
+    	enqueueMultiplier(10); //add 10 elements +10 F:0 L:10
+    	ringBuffer.dequeue(); //remove an element from the front -1 F:1 L:10
+    	ringBuffer.enqueue(11); //add a new element to the front +1 F:1 L:1
+    	dequeueMultiplier(9); //remove 9 elements, only element remaining should be the front element -9
     	assertEquals(11, ringBuffer.peek(), 0.0001, "First element should be 11");
     }
     

@@ -35,7 +35,7 @@ public class RingBuffer {
 	 */
 	public int size() {
 		if(first > last) { //if buffer wraps around return the index difference plus length to get number of slots filled in
-			return last - first + ringBuffer.length + 1; //add  1 for 0-indexing
+			return last - first + ringBuffer.length; //add  1 for 0-indexing
 		}
 		return last - first; //if it hasn't wrapped around return the difference between indices
 	}
@@ -78,6 +78,7 @@ public class RingBuffer {
 		else if(last == ringBuffer.length) { //if last is at the end of the buffer, wrap around by resetting last
 			last = 0;
 			ringBuffer[last] = x; //and add the double to the newly set last
+			last++;
 		}
 		else { //if last is not at end, fill empty slot with double and increment last
 			ringBuffer[last] = x;
@@ -112,5 +113,5 @@ public class RingBuffer {
 	public double peek() {
 		return ringBuffer[first];
 	}
-	
+
 }
