@@ -1,5 +1,7 @@
 package work.niaz.example.GuitarString;
 
+import java.util.NoSuchElementException;
+
 /**
  * Ring Buffer
  * 
@@ -69,9 +71,9 @@ public class RingBuffer {
 	 * @throws FullRingBufferException if a double is enqueued to a full buffer
 	 */
 	
-	public void enqueue(double x) throws FullRingBufferException {
+	public void enqueue(double x) {
 		if(this.isFull()) { //if buffer is full throw exception
-			throw new FullRingBufferException("Buffer is full.");
+			throw new IllegalStateException("Buffer is full.");
 		}
 		else if(last == ringBuffer.length) { //if last is at the end of the buffer, wrap around by resetting last
 			last = 0;
@@ -90,9 +92,9 @@ public class RingBuffer {
 	 * @throws EmptyRingBufferException if one attempts to dequeue from an empty buffer
 	 */
 	
-	public double dequeue() throws EmptyRingBufferException {
+	public double dequeue() {
 		if(this.isEmpty()) { //if buffer is empty throw an exception
-			throw new EmptyRingBufferException("Buffer is empty.");
+			throw new NoSuchElementException("Buffer is empty.");
 		}
 		first++; //increment first
 		if(first == ringBuffer.length) { //if first index tracker is at the end of the array, wrap around

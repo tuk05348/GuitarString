@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -42,52 +44,52 @@ public class RingBufferTest
 	 * Helper Methods, do multiple enqueues and dequeues at once
 	 */
 	
-	void enqueueMultiplier(int n) throws FullRingBufferException {
+	void enqueueMultiplier(int n)  {
 		for(int i=0; i<n; i++) {
 			ringBuffer.enqueue(i);
 		}
 	}
 	
-	void dequeueMultiplier(int n) throws EmptyRingBufferException {
+	void dequeueMultiplier(int n)  {
 		for(int i=0; i<n; i++) {
 			ringBuffer.dequeue();
 		}
 	}
 	
     @Test
-    public void testSize() throws FullRingBufferException, EmptyRingBufferException { //test size of buffer after enqueuing and dequeuing
+    public void testSize() { //test size of buffer after enqueuing and dequeuing
     	enqueueMultiplier(5);
     	dequeueMultiplier(3);
         assertEquals(2, ringBuffer.size(), "Size of buffer should equal number of items currently in buffer");
     }
     
 	@Test
-	public void testPeek() throws FullRingBufferException { //test seeing what the first element of the buffer is
+	public void testPeek() { //test seeing what the first element of the buffer is
 		assertEquals(0, ringBuffer.peek(), 0.0001, "First element returned should equal 0 for an empty ring buffer.");
 	}
 	
 	@Test
-	public void testEnqueue() throws FullRingBufferException{ //test enqueuing
+	public void testEnqueue() { //test enqueuing
 		ringBuffer.enqueue(1);
 		assertEquals(1, ringBuffer.peek(), 0.0001, "After adding element in empty ring, first element should be 1");
 	}
 	
 	@Test
-	public void testDequeueReturn() throws FullRingBufferException, EmptyRingBufferException {
+	public void testDequeueReturn() {
 		ringBuffer.enqueue(1);
 		double item = ringBuffer.dequeue(); //test checking the value of what dequeue returns
 		assertEquals(1, item, 0.0001, "Returned item should equal item that was placed at front");
 	}
 	
 	@Test
-	public void testDequeue() throws FullRingBufferException, EmptyRingBufferException {
+	public void testDequeue() {
 		enqueueMultiplier(2);
 		ringBuffer.dequeue(); //test that dequeue removes the item
 		assertEquals(1, ringBuffer.peek(), 0.0001, "First element should be 1 after dequeue");
 	}
 	  
     @Test
-    public void testCyclicWrapAroundLast() throws FullRingBufferException, EmptyRingBufferException {
+    public void testCyclicWrapAroundLast() {
     	enqueueMultiplier(10); //add 10 elements
     	ringBuffer.dequeue(); //remove an element from the front
     	ringBuffer.enqueue(11); //add a new element to the front
@@ -96,7 +98,7 @@ public class RingBufferTest
     }
     
     @Test
-    public void testCyclicWrapAroundFirst() throws FullRingBufferException, EmptyRingBufferException {
+    public void testCyclicWrapAroundFirst() {
     	enqueueMultiplier(10); //add 10 elements
     	dequeueMultiplier(9); //remove 9 elements
     	enqueueMultiplier(2); //add 2 elements, both should wrap around to the front
@@ -106,7 +108,7 @@ public class RingBufferTest
     }
     
     @Test
-    public void testCyclicWrapAroundSize() throws FullRingBufferException, EmptyRingBufferException {
+    public void testCyclicWrapAroundSize() {
     	enqueueMultiplier(10); //add 10 elements
     	dequeueMultiplier(8); //remove 8 elements
     	enqueueMultiplier(2); //add 2 elements, 4 should be in buffer
@@ -114,29 +116,29 @@ public class RingBufferTest
     }
     
     @Test
-    public void testIsEmpty() throws FullRingBufferException, EmptyRingBufferException {
+    public void testIsEmpty() {
     	enqueueMultiplier(10); //add 10 elements
     	dequeueMultiplier(9); //remove 9 elements
     	assertEquals(false, ringBuffer.isEmpty(), "Ringbuffer should not be empty");
     }
     
     @Test
-    public void testIsFull() throws FullRingBufferException, EmptyRingBufferException {
+    public void testIsFull() {
     	enqueueMultiplier(10); //add 10 elements
     	ringBuffer.dequeue(); //remove one element
     	assertEquals(false, ringBuffer.isFull(), "Ringbuffer should not be full");
     }
     
     @Test
-    public void testEnqueueOnFull() throws FullRingBufferException {
+    public void testEnqueueOnFull()  {
     	enqueueMultiplier(10); //add 10 elements, attempt to add another and check if exception is thrown
-    	FullRingBufferException exception = assertThrows(FullRingBufferException.class, () -> ringBuffer.enqueue(11));
+    	IllegalStateException exception = assertThrows(IllegalStateException.class, () -> ringBuffer.enqueue(11));
     	assertEquals("Buffer is full.", exception.getMessage());
     }
     
     @Test
-    public void testDequeueOnFull() throws EmptyRingBufferException { //attempt to dequeue an empty buffer and check if exception is thrown
-    	EmptyRingBufferException exception = assertThrows(EmptyRingBufferException.class, () -> ringBuffer.dequeue());
+    public void testDequeueOnFull()  { //attempt to dequeue an empty buffer and check if exception is thrown
+    	NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> ringBuffer.dequeue());
     	assertEquals("Buffer is empty.", exception.getMessage());
     }
 
