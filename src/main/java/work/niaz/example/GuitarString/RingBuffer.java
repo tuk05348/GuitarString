@@ -35,7 +35,7 @@ public class RingBuffer {
 	 * @return number of items currently in buffer
 	 */
 	public int size() {
-		return 1;
+		return 0;
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class RingBuffer {
 	 */
 	
 	public void enqueue(double x) {
-		
+		ringBuffer[last] = x;
 	}
 	
 	/**
