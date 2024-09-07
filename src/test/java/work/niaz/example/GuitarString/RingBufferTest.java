@@ -56,4 +56,9 @@ public class RingBufferTest
 		}
 	}
 	
+	@Test
+	public void testPeek() {
+		NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> ringBuffer.peek());
+		assertEquals("Buffer is empty.", exception.getMessage());
+	}
 }
