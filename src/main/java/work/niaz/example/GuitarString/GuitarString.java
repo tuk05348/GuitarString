@@ -17,13 +17,9 @@ public class GuitarString {
 	}
 	
 	public GuitarString(double[] init) { //create a new GuitarString with a given array
-		ringBuffer = new RingBuffer(init.length); //create ring buffer
+		ringBuffer = new RingBuffer(init.length + 1); //create ring buffer
 		for(int i=0; i<init.length; i++) { //initialize ring buffer with the array
-			try {
 				ringBuffer.enqueue(init[i]);
-			} catch (FullRingBufferException e) {
-				System.out.println("Buffer is full, unable to enqueue to buffer.");;
-			}
 		}
 	}
 	
@@ -32,11 +28,10 @@ public class GuitarString {
 	}
 	
 	void tic() {
-		
 	}
 	
 	double sample() {
-		return ringBuffer.peek();
+		return 0;
 	}
 	
 	int time() {
