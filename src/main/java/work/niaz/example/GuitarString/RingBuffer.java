@@ -35,7 +35,7 @@ public class RingBuffer {
 	 * @return number of items currently in buffer
 	 */
 	public int size() {
-		return 0;
+		return 1;
 	}
 	
 	/**
@@ -84,6 +84,6 @@ public class RingBuffer {
 	 * @return the double from the front of the buffer
 	 */
 	public double peek() {
-		return 0;
+		throw new NoSuchElementException("Buffer is empty.");
 	}
 }
