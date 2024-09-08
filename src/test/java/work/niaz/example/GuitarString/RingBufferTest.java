@@ -89,4 +89,11 @@ public class RingBufferTest
 		ringBuffer.enqueue(1);
 		assertEquals(1, ringBuffer.peek(), 0.0001, "Peek should return first element enqueued to buffer.");
 	}
+	
+	@Test
+	public void testEnqueue() {
+		ringBuffer.enqueue(1);
+		ringBuffer.enqueue(2);
+		assertEquals(1,  ringBuffer.peek(), 0.0001, "Enqueuing should add an element, not overwrite the first.");
+	}
 }

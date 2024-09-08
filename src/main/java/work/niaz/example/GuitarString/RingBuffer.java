@@ -67,7 +67,7 @@ public class RingBuffer {
 	 */
 	
 	public void enqueue(double x) {
-		ringBuffer[last] = x;
+		ringBuffer[first] = x;
 		last++;
 	}
 	
@@ -88,6 +88,9 @@ public class RingBuffer {
 	 * @return the double from the front of the buffer
 	 */
 	public double peek() {
-		throw new NoSuchElementException("Buffer is empty.");
+		if(this.isEmpty()) {
+			throw new NoSuchElementException("Buffer is empty.");
+		}
+		return ringBuffer[first];
 	}
 }
