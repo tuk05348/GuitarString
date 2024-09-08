@@ -103,4 +103,12 @@ public class RingBufferTest
 		double item = ringBuffer.dequeue();
 		assertEquals(1, item, 0.0001, "Dequeue should return item that was first.");
 	}
+	
+	@Test
+	public void testDequeueMoveForward() {
+		ringBuffer.enqueue(1);
+		ringBuffer.enqueue(2);
+		ringBuffer.dequeue();
+		assertEquals(2, ringBuffer.peek(), 0.0001, "Head of ring buffer should be at second element.");
+	}
 }
