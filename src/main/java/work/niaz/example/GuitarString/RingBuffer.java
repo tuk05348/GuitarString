@@ -79,7 +79,8 @@ public class RingBuffer {
 	 */
 	
 	public double dequeue() {
-		return ringBuffer[first];
+		first++;
+		return ringBuffer[first-1];
 	}
 	
 	/**

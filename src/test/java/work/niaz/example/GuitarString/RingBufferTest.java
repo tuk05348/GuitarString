@@ -85,6 +85,12 @@ public class RingBufferTest
 	}
 	
 	@Test
+	public void testIsFullTrueForFull() {
+		enqueueMultiplier(10);
+		assertEquals(true, ringBuffer.isFull(), "Should return true for full buffer.");
+	}
+	
+	@Test
 	public void testPeekOnNonEmptyBuffer() {
 		ringBuffer.enqueue(1);
 		assertEquals(1, ringBuffer.peek(), 0.0001, "Peek should return first element enqueued to buffer.");
