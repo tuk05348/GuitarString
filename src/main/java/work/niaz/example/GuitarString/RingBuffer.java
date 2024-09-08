@@ -73,6 +73,9 @@ public class RingBuffer {
 		if(this.isFull()) {
 			throw new IllegalStateException("Buffer is full.");
 		}
+		else if(last == length) {
+			last = 0;
+		}
 		ringBuffer[last] = x;
 		last++;
 	}
