@@ -96,4 +96,11 @@ public class RingBufferTest
 		ringBuffer.enqueue(2);
 		assertEquals(1,  ringBuffer.peek(), 0.0001, "Enqueuing should add an element, not overwrite the first.");
 	}
+	
+	@Test
+	public void testDequeueReturn() {
+		ringBuffer.enqueue(1);
+		double item = ringBuffer.dequeue();
+		assertEquals(1, item, 0.0001, "Dequeue should return item that was first.");
+	}
 }

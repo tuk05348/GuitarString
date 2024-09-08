@@ -67,7 +67,7 @@ public class RingBuffer {
 	 */
 	
 	public void enqueue(double x) {
-		ringBuffer[first] = x;
+		ringBuffer[last] = x;
 		last++;
 	}
 	
