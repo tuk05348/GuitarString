@@ -105,7 +105,7 @@ public class RingBuffer {
 	}
 	
 	public int getFirst() {
-		return 0;
+		return first;
 	}
 	
 	public int getLast() {

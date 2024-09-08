@@ -148,6 +148,12 @@ public class RingBufferTest
 	public void testGetFirst() {
 		enqueueMultiplier(2);
 		ringBuffer.dequeue();
-		assertEquals(1, ringBuffer.getFirst(), "First index should be 1." );
+		assertEquals(1, ringBuffer.getFirst(), "First index should be 1.");
+	}
+	
+	@Test
+	public void testGetLast() {
+		enqueueMultiplier(2);
+		assertEquals(2, ringBuffer.getLast(), "Last index should be 2.");
 	}
 }
