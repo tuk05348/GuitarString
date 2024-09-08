@@ -82,6 +82,9 @@ public class RingBuffer {
 	 */
 	
 	public double dequeue() {
+		if(this.isEmpty()) {
+			throw new NoSuchElementException("Buffer is empty.");
+		}
 		first++;
 		return ringBuffer[first-1];
 	}

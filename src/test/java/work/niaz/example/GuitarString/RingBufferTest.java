@@ -110,6 +110,13 @@ public class RingBufferTest
 	}
 	
 	@Test
+	public void testEnqueueOnFullBuffer() {
+		enqueueMultiplier(10);
+		IllegalStateException exception = assertThrows(IllegalStateException.class, () -> ringBuffer.enqueue(11));
+		assertEquals("Buffer is full.", exception.getMessage());
+	}
+	
+	@Test
 	public void testDequeueReturn() {
 		ringBuffer.enqueue(1);
 		double item = ringBuffer.dequeue();
