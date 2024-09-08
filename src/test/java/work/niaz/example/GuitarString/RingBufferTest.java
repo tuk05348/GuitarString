@@ -121,6 +121,7 @@ public class RingBufferTest
 		enqueueMultiplier(10);
 		ringBuffer.dequeue();
 		ringBuffer.enqueue(11);
+		assertEquals(1, ringBuffer.getLast(), "Last index should be 1.");
 	}
 	
 	@Test
