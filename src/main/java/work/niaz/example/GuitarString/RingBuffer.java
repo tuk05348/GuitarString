@@ -91,11 +91,11 @@ public class RingBuffer {
 		if(this.isEmpty()) {
 			throw new NoSuchElementException("Buffer is empty.");
 		}
-		else if(first == length) {
+		first++;
+		if(first == length) {
 			first = 0;
 			return ringBuffer[length - 1];
 		}
-		first++;
 		return ringBuffer[first-1];
 	}
 	
