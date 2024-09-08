@@ -74,6 +74,14 @@ public class RingBufferTest
 	}
 	
 	@Test
+	public void testSizeOnCyclicWrapAround() {
+		enqueueMultiplier(10);
+		dequeueMultiplier(5);
+		enqueueMultiplier(5);
+		assertEquals(5, ringBuffer.size(), "Size should be 5 on wrap around.");
+	}
+	
+	@Test
 	public void testIsEmptyTrueForEmpty() {
 		assertEquals(true, ringBuffer.isEmpty(), "Should return true as the ring buffer is empty.");
 	}
