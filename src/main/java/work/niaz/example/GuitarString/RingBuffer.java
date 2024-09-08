@@ -44,6 +44,9 @@ public class RingBuffer {
 	 * @return boolean denoting if buffer is empty or not
 	 */
 	public boolean isEmpty() {
+		if(this.size() == 0) {
+			return true;
+		}
 		return false;
 	}
 	
@@ -65,6 +68,7 @@ public class RingBuffer {
 	
 	public void enqueue(double x) {
 		ringBuffer[last] = x;
+		last++;
 	}
 	
 	/**

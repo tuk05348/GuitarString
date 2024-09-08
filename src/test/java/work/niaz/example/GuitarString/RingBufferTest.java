@@ -79,6 +79,12 @@ public class RingBufferTest
 	}
 	
 	@Test
+	public void testIsEmptyFalseForNonEmpty() {
+		ringBuffer.enqueue(1);
+		assertEquals(false, ringBuffer.isEmpty(), "Should return false as the ring buffer is not empty.");
+	}
+	
+	@Test
 	public void testPeekOnNonEmptyBuffer() {
 		ringBuffer.enqueue(1);
 		assertEquals(1, ringBuffer.peek(), 0.0001, "Peek should return first element enqueued to buffer.");
