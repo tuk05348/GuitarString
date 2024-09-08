@@ -147,11 +147,11 @@ public class RingBufferTest
 	
 	@Test
 	public void testDequeueCyclicWrapAround() {
-		enqueueMultiplier(10);
-		dequeueMultiplier(9);
-		ringBuffer.enqueue(1);
-		ringBuffer.dequeue();
-		assertEquals(0, ringBuffer.getFirst(), "First should equal zero, start of buffer.");
+		enqueueMultiplier(10); //F0 L0
+		dequeueMultiplier(9);  //F9 L0
+		enqueueMultiplier(2);  //L2 F9
+		dequeueMultiplier(2);  //F1 L2
+		assertEquals(1, ringBuffer.getFirst(), "First should equal zero, start of buffer.");
 	}
 	
 	@Test
