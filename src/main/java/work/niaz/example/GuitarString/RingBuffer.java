@@ -56,7 +56,7 @@ public class RingBuffer {
 	 * @return boolean denoting if buffer is full or not
 	 */
 	public boolean isFull() {
-		return false;
+		return true;
 	}
 	
 	/**
