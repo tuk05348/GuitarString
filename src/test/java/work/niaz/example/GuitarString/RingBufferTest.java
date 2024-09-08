@@ -123,4 +123,10 @@ public class RingBufferTest
 		ringBuffer.dequeue();
 		assertEquals(2, ringBuffer.peek(), 0.0001, "Head of ring buffer should be at second element.");
 	}
+	
+	@Test
+	public void testDequeueOnEmptyBuffer() {
+		NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> ringBuffer.dequeue());
+		assertEquals("Buffer is empty.", exception.getMessage());
+	}
 }
