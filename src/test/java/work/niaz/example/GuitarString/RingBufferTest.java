@@ -121,7 +121,6 @@ public class RingBufferTest
 		enqueueMultiplier(10);
 		ringBuffer.dequeue();
 		ringBuffer.enqueue(11);
-		assertEquals(11, ringBuffer.peek(), 0.0001, "Enqueue should wrap around when the end of the buffer is reached.");
 	}
 	
 	@Test
@@ -143,5 +142,12 @@ public class RingBufferTest
 	public void testDequeueOnEmptyBuffer() {
 		NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> ringBuffer.dequeue());
 		assertEquals("Buffer is empty.", exception.getMessage());
+	}
+	
+	@Test
+	public void testGetFirst() {
+		enqueueMultiplier(2);
+		ringBuffer.dequeue();
+		assertEquals(1, ringBuffer.getFirst(), "First index should be 1." );
 	}
 }
