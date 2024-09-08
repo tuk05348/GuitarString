@@ -117,6 +117,14 @@ public class RingBufferTest
 	}
 	
 	@Test
+	public void testEnqueueCyclicWrapAround() {
+		enqueueMultiplier(10);
+		ringBuffer.dequeue();
+		ringBuffer.enqueue(11);
+		assertEquals(11, ringBuffer.peek(), 0.0001, "Enqueue should wrap around when the end of the buffer is reached.");
+	}
+	
+	@Test
 	public void testDequeueReturn() {
 		ringBuffer.enqueue(1);
 		double item = ringBuffer.dequeue();

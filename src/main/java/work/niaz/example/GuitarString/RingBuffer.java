@@ -70,6 +70,9 @@ public class RingBuffer {
 	 */
 	
 	public void enqueue(double x) {
+		if(this.isFull()) {
+			throw new IllegalStateException("Buffer is full.");
+		}
 		ringBuffer[last] = x;
 		last++;
 	}
