@@ -35,6 +35,9 @@ public class RingBuffer {
 	 * @return number of items currently in buffer
 	 */
 	public int size() {
+		if(first > last) {
+			return last - first + length;
+		}
 		return last - first;
 	}
 	
