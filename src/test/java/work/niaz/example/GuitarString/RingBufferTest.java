@@ -76,8 +76,8 @@ public class RingBufferTest
 	@Test
 	public void testSizeOnCyclicWrapAround() {
 		enqueueMultiplier(10);
-		dequeueMultiplier(5);
-		enqueueMultiplier(5);
+		dequeueMultiplier(7);
+		enqueueMultiplier(2);
 		assertEquals(5, ringBuffer.size(), "Size should be 5 on wrap around.");
 	}
 	
