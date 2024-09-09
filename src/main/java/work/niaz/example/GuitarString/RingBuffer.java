@@ -141,7 +141,6 @@ public class RingBuffer {
 	}
 	
 	public double[] getRingBuffer() {
-		double[] buffer = {0};
-		return buffer;
+		return ringBuffer;
 	}
 }
