@@ -50,7 +50,8 @@ public class GuitarStringTest {
 		}
 		
 		@Test
-		public void testTic() {
+		public void testSample() {
+			assertEquals(0.2, guitarString.sample(), "Sample should return 0.2");
 		}
 	}
 }
