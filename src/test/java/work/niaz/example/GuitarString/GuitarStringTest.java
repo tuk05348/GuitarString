@@ -33,10 +33,6 @@ public class GuitarStringTest {
 	public void tearDown() {
 	}
 	
-	@Test
-	void testSample() {
-	}
-	
 	@Nested
 	public class AlternateConstructor {
 		@BeforeEach
@@ -52,6 +48,14 @@ public class GuitarStringTest {
 		@Test
 		public void testSample() {
 			assertEquals(0.2, guitarString.sample(), "Sample should return 0.2");
+		}
+		
+		@Test
+		public void testTic() {
+			guitarString.tic();
+			guitarString.tic();
+			guitarString.tic();
+			assertEquals(0.2982, guitarString.sample(), 0.0001, "Tic should add average of first two samples to end.");
 		}
 	}
 }
