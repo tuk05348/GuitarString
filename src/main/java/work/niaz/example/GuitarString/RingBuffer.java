@@ -145,6 +145,6 @@ public class RingBuffer {
 	}
 	
 	public int getLength() {
-		return 0;
+		return length;
 	}
 }

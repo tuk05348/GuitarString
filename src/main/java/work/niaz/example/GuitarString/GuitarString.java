@@ -24,7 +24,13 @@ public class GuitarString {
 	}
 	
 	void pluck() {
-		
+		for(int i=0; i<ringBuffer.size(); i++) {
+			ringBuffer.dequeue();
+			ringBuffer.enqueue(Math.ceil(Math.random() - 0.5));
+		}
+		while(!ringBuffer.isFull()) {
+			ringBuffer.enqueue(Math.ceil(Math.random() - 0.5));
+		}
 	}
 	
 	void tic() {
