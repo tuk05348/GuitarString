@@ -35,8 +35,8 @@ public class RingBuffer {
 	 * @return number of items currently in buffer
 	 */
 	public int size() {
-		if(first > last) {
-			return last - first + length;
+		if(first > last) { //check for cyclic wrap-around
+			return last - first + length; //last minus first = number of empty slots, add length to get size
 		}
 		return last - first;
 	}
@@ -69,17 +69,17 @@ public class RingBuffer {
 	 * Adds a double to the end of ring buffer
 	 * 
 	 * @param x A double value representing a vibration of the string
-	 * @throws FullRingBufferException if a double is enqueued to a full buffer
+	 * @throws IllegalStateException if a double is enqueued to a full buffer
 	 */
 	
 	public void enqueue(double x) {
-		if(this.isFull()) {
+		if(this.isFull()) { //throw an exception if full
 			throw new IllegalStateException("Buffer is full.");
 		}
-		else if(last == length) {
+		else if(last == length) { //wrap around if last equals length
 			last = 0;
 		}
-		ringBuffer[last] = x;
+		ringBuffer[last] = x; //add item, increment last
 		last++;
 	}
 	
@@ -87,17 +87,17 @@ public class RingBuffer {
 	 * Removes an item from the front of the ring buffer
 	 * 
 	 * @return the double removed from the ring buffer
-	 * @throws EmptyRingBufferException if one attempts to dequeue from an empty buffer
+	 * @throws NoSuchElementException if one attempts to dequeue from an empty buffer
 	 */
 	
 	public double dequeue() {
 		if(this.isEmpty()) {
 			throw new NoSuchElementException("Buffer is empty.");
 		}
-		first++;
-		if(first == length) {
+		first++; //increment first
+		if(first == length) { //wrap around if it equals length
 			first = 0;
-			return ringBuffer[length - 1];
+			return ringBuffer[length - 1]; //return item that was removed
 		}
 		return ringBuffer[first-1];
 	}
@@ -106,18 +106,29 @@ public class RingBuffer {
 	 * Returns item from the front of the buffer but does not remove it
 	 * 
 	 * @return the double from the front of the buffer
+	 * @throws NoSuchElementException if peek is called on an empty ring buffer
 	 */
 	public double peek() {
-		if(this.isEmpty()) {
+		if(this.isEmpty()) { //throw an exception if empty
 			throw new NoSuchElementException("Buffer is empty.");
 		}
-		return ringBuffer[first];
+		return ringBuffer[first]; //return first item in buffer
 	}
 	
+	/**
+	 * Returns the index of the least-recently inserted item. Testing method only. 
+	 * 
+	 * @return the value of the first index tracker
+	 */
 	public int getFirst() {
 		return first;
 	}
 	
+	/**
+	 * Returns the index that is one more than the most recently inserted item. Testing method only.
+	 * 
+	 * @return the value of the last index tracker
+	 */
 	public int getLast() {
 		return last;
 	}

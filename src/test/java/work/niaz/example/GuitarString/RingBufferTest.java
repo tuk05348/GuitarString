@@ -63,6 +63,12 @@ public class RingBufferTest
 	}
 	
 	@Test
+	public void testPeekOnNonEmptyBuffer() {
+		ringBuffer.enqueue(1);
+		assertEquals(1, ringBuffer.peek(), 0.0001, "Peek should return first element enqueued to buffer.");
+	}
+	
+	@Test
 	public void testSizeOnEmptyBuffer() {
 		assertEquals(0, ringBuffer.size(), 0.0001, "Size should be zero for an empty buffer.");
 	}
@@ -82,39 +88,33 @@ public class RingBufferTest
 	}
 	
 	@Test
-	public void testIsEmptyTrueForEmpty() {
+	public void testIsEmptyTrueForEmptyBuffer() {
 		assertEquals(true, ringBuffer.isEmpty(), "Should return true as the ring buffer is empty.");
 	}
 	
 	@Test
-	public void testIsEmptyFalseForNonEmpty() {
+	public void testIsEmptyFalseForNonEmptyBuffer() {
 		ringBuffer.enqueue(1);
 		assertEquals(false, ringBuffer.isEmpty(), "Should return false as the ring buffer is not empty.");
 	}
 	
 	@Test
-	public void testIsFullTrueForFull() {
+	public void testIsFullTrueForFullBuffer() {
 		enqueueMultiplier(10);
 		assertEquals(true, ringBuffer.isFull(), "Should return true for full buffer.");
 	}
 	
 	@Test
-	public void testIsFullFalseForNotFull() {
+	public void testIsFullFalseForNotFullBuffer() {
 		enqueueMultiplier(5);
 		assertEquals(false, ringBuffer.isFull(), "Should return false for not full buffer.");
 	}
-	
-	@Test
-	public void testPeekOnNonEmptyBuffer() {
-		ringBuffer.enqueue(1);
-		assertEquals(1, ringBuffer.peek(), 0.0001, "Peek should return first element enqueued to buffer.");
-	}
-	
+		
 	@Test
 	public void testEnqueue() {
 		ringBuffer.enqueue(1);
 		ringBuffer.enqueue(2);
-		assertEquals(1,  ringBuffer.peek(), 0.0001, "Enqueuing should add an element, not overwrite the first.");
+		assertEquals(1, ringBuffer.peek(), 0.0001, "Enqueuing should add an element, not overwrite the first.");
 	}
 	
 	@Test
@@ -140,7 +140,7 @@ public class RingBufferTest
 	}
 	
 	@Test
-	public void testDequeueMoveForward() {
+	public void testDequeueMoveFirstForward() {
 		ringBuffer.enqueue(1);
 		ringBuffer.enqueue(2);
 		ringBuffer.dequeue();
