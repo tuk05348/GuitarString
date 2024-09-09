@@ -182,4 +182,9 @@ public class RingBufferTest
 		double[] expected = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 		assertArrayEquals(expected,  ringBuffer.getRingBuffer(), "Arrays should be equal");
 	}
+	
+	@Test
+	public void testGetLength() {
+		assertEquals(10, ringBuffer.getLength(), "Length of buffer should be 10.");
+	}
 }

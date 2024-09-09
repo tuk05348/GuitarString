@@ -30,6 +30,7 @@ public class GuitarString {
 	void tic() {
 		double item = ringBuffer.dequeue() + ringBuffer.peek();
 		ringBuffer.enqueue(item * 0.5 * 0.994);
+		simTime++;
 	}
 	
 	double sample() {
@@ -37,6 +38,6 @@ public class GuitarString {
 	}
 	
 	int time() {
-		return 0;
+		return simTime;
 	}
 }

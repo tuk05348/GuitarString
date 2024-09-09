@@ -143,4 +143,8 @@ public class RingBuffer {
 	public double[] getRingBuffer() {
 		return ringBuffer;
 	}
+	
+	public int getLength() {
+		return 0;
+	}
 }
