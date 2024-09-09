@@ -28,6 +28,8 @@ public class GuitarString {
 	}
 	
 	void tic() {
+		double item = ringBuffer.dequeue() + ringBuffer.peek();
+		ringBuffer.enqueue(item * 0.5 * 0.994);
 	}
 	
 	double sample() {

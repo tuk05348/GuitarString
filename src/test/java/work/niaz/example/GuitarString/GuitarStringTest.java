@@ -57,5 +57,11 @@ public class GuitarStringTest {
 			guitarString.tic();
 			assertEquals(0.2982, guitarString.sample(), 0.0001, "Tic should add average of first two samples to end.");
 		}
+		
+		@Test
+		public void testTime() {
+			guitarString.tic();
+			assertEquals(1, guitarString.time(), "Time should be 1 after 1 tic.");
+		}
 	}
 }
