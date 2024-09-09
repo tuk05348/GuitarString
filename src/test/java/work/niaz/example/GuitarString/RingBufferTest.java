@@ -1,6 +1,7 @@
 package work.niaz.example.GuitarString;
 
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -173,5 +174,12 @@ public class RingBufferTest
 	public void testGetLast() {
 		enqueueMultiplier(2);
 		assertEquals(2, ringBuffer.getLast(), "Last index should be 2.");
+	}
+	
+	@Test
+	public void testGetBuffer() {
+		enqueueMultiplier(10);
+		double[] expected = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+		assertArrayEquals(expected,  ringBuffer.getRingBuffer(), "Arrays should be equal");
 	}
 }

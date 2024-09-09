@@ -23,10 +23,17 @@ public class RingBuffer {
 	 */
 	
 	public RingBuffer(int capacity) { //ring buffer constructor
-		ringBuffer = new double[capacity + 1]; //array of double with given capacity
+		/*
+		 * Capacity is one higher because of cyclic wrap-around, one cell will always be left empty so we can avoid
+		 * the ambiguity of first and last equalling each other, it could mean an empty or full buffer. We need an
+		 * empty buffer so we amend the full buffer case so that it technically stops one cell early.
+		 * The user is "tricked" because they get a ring buffer of their chosen capacity, it's just implemented to be
+		 * one slot bigger.
+		 */
+		ringBuffer = new double[capacity + 1]; //array of double with given capacity plus one 
 		first = 0; //index trackers set to zero
 		last = 0;
-		length = capacity;
+		length = capacity; //the real, usable length of the ring buffer.
 	}
 	
 	/**
@@ -131,5 +138,10 @@ public class RingBuffer {
 	 */
 	public int getLast() {
 		return last;
+	}
+	
+	public double[] getRingBuffer() {
+		double[] buffer = {0};
+		return buffer;
 	}
 }
