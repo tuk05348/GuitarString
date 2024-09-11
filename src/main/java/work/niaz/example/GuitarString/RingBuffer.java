@@ -43,7 +43,7 @@ public class RingBuffer {
 	 */
 	public int size() {
 		if(first > last) { //check for cyclic wrap-around
-			return last - first + length; //last minus first = number of empty slots, add length to get size
+			return last - first + length + 1; //last minus first = number of empty slots, add length to get size
 		}
 		return last - first;
 	}
@@ -83,7 +83,7 @@ public class RingBuffer {
 		if(this.isFull()) { //throw an exception if full
 			throw new IllegalStateException("Buffer is full.");
 		}
-		else if(last == length) { //wrap around if last equals length
+		else if(last == length+1) { //wrap around if last equals length
 			last = 0;
 		}
 		ringBuffer[last] = x; //add item, increment last
@@ -102,9 +102,9 @@ public class RingBuffer {
 			throw new NoSuchElementException("Buffer is empty.");
 		}
 		first++; //increment first
-		if(first == length) { //wrap around if it equals length
+		if(first == length+1) { //wrap around if it equals length
 			first = 0;
-			return ringBuffer[length - 1]; //return item that was removed
+			return ringBuffer[length]; //return item that was removed
 		}
 		return ringBuffer[first-1];
 	}

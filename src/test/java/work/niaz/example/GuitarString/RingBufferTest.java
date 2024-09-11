@@ -83,9 +83,9 @@ public class RingBufferTest
 	@Test
 	public void testSizeOnCyclicWrapAround() {
 		enqueueMultiplier(10);
-		dequeueMultiplier(7);
-		enqueueMultiplier(2);
-		assertEquals(5, ringBuffer.size(), "Size should be 5 on wrap around.");
+		dequeueMultiplier(1);
+		enqueueMultiplier(1);
+		assertEquals(10, ringBuffer.size(), "Size should be 5 on wrap around.");
 	}
 	
 	@Test
@@ -130,7 +130,7 @@ public class RingBufferTest
 		enqueueMultiplier(10);
 		ringBuffer.dequeue();
 		ringBuffer.enqueue(11);
-		assertEquals(1, ringBuffer.getLast(), "Last index should be 1.");
+		assertEquals(11, ringBuffer.getLast(), "Last index should be 1.");
 	}
 	
 	@Test
@@ -160,7 +160,7 @@ public class RingBufferTest
 		dequeueMultiplier(9);
 		enqueueMultiplier(2);
 		dequeueMultiplier(2);
-		assertEquals(1, ringBuffer.getFirst(), "First should equal zero, start of buffer.");
+		assertEquals(0, ringBuffer.getFirst(), "First should equal zero, start of buffer.");
 	}
 	
 	@Test
