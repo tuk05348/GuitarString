@@ -13,8 +13,11 @@ public class GuitarHeroLite {
         GuitarString stringA = new GuitarString(CONCERT_A);
         GuitarString stringC = new GuitarString(CONCERT_C);
         
-        stringA.pluck();
-        stringC.pluck();
+		StdDraw.setPenRadius(0.05);
+        StdDraw.setPenColor(StdDraw.BLUE);
+        StdDraw.point(0.5, 0.5);
+        StdDraw.setPenColor(StdDraw.MAGENTA);
+        StdDraw.line(0.2, 0.2, 0.8, 0.2);
         
         while (true) {
             // check if the user has typed a key; if so, process it   
