@@ -13,7 +13,7 @@ public class GuitarString {
 
 	public GuitarString(double frequency) { //create a new GuitarString with a given frequency
 		//divide the sampling rate by frequency and round up to the nearest integer
-		ringBuffer = new RingBuffer((int) Math.ceil(samplingRate/frequency));
+		ringBuffer = new RingBuffer((int) Math.ceil(((double) samplingRate)/frequency));
 	}
 	
 	public GuitarString(double[] init) { //create a new GuitarString with a given array
@@ -27,12 +27,11 @@ public class GuitarString {
 	 * Randomize the ring buffer of the guitar string with random values between 0.5 and -0.5
 	 */
 	void pluck() {
-		for(int i=0; i<ringBuffer.size(); i++) { //replace all existing items with random values
+		while(!ringBuffer.isEmpty()) { //replace all existing items with random values
 			ringBuffer.dequeue();
-			ringBuffer.enqueue(Math.random() - 0.5);
 		}
 		while(!ringBuffer.isFull()) { //if the buffer isn't full, fill in the rest of the buffer with random values
-			ringBuffer.enqueue(Math.ceil(Math.random() - 0.5));
+			ringBuffer.enqueue(Math.random() - 0.5);
 		}
 	}
 	
@@ -63,4 +62,5 @@ public class GuitarString {
 	int time() {
 		return simTime;
 	}
+	
 }
