@@ -14,6 +14,9 @@ public class GuitarString {
 	public GuitarString(double frequency) { //create a new GuitarString with a given frequency
 		//divide the sampling rate by frequency and round up to the nearest integer
 		ringBuffer = new RingBuffer((int) Math.ceil(((double) samplingRate)/frequency));
+		while(!ringBuffer.isFull()) {
+			ringBuffer.enqueue(0);
+		}
 	}
 	
 	public GuitarString(double[] init) { //create a new GuitarString with a given array
