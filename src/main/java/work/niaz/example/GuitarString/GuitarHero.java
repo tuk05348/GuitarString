@@ -8,11 +8,18 @@ public class GuitarHero {
 	public static void main(String[] args) {
 		String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 		
-		StdDraw.setPenRadius(0.05);
+		StdDraw.setTitle("Guitar Hero");
+		StdDraw.enableDoubleBuffering();
+		StdDraw.setPenRadius(0.001);
         StdDraw.setPenColor(StdDraw.BLUE);
-        StdDraw.point(0.5, 0.5);
-        StdDraw.setPenColor(StdDraw.MAGENTA);
-        StdDraw.line(0.2, 0.2, 0.8, 0.2);
+        StdDraw.setXscale(0, 100);
+        StdDraw.setYscale(-0.5, 0.5);
+        StdDraw.point(0, 0);
+        
+        double prevX = 0;
+        double prevY = 0;
+        int xOffset = 0;
+
 		
 		GuitarString[] guitarStrings = new GuitarString[37];
 		for(int i=0; i<keyboard.length(); i++) {
@@ -25,8 +32,8 @@ public class GuitarHero {
                 char key = StdDraw.nextKeyTyped();
                 int i = keyboard.indexOf(key);
                 if(i != -1) {
-                	System.out.println(i + " " + key);
                 	guitarStrings[i].pluck();
+                	System.out.println(key + " " + i);
                 }
             }
 			
@@ -39,6 +46,17 @@ public class GuitarHero {
 			for (GuitarString g : guitarStrings) {
 				g.tic();
 			}
+			
+			double time = ((double) guitarStrings[0].time())/1000;
+			
+			if(time%1000 == 0) {
+				//StdDraw.clear();
+				StdDraw.line(prevX, prevY, time, sample);
+				StdDraw.show();
+				prevX = time;
+				prevY = sample;
+			}
+
 		}
 	}
 	
