@@ -18,7 +18,7 @@ public class GuitarHero {
         
         double prevX = 0;
         double prevY = 0;
-        int xOffset = 0;
+        double timeOffset = 0;
 
 		
 		GuitarString[] guitarStrings = new GuitarString[37];
@@ -47,13 +47,17 @@ public class GuitarHero {
 				g.tic();
 			}
 			
-			double time = ((double) guitarStrings[0].time())/1000;
+			double time = guitarStrings[0].time();
+			
+			if(time/1000 - timeOffset > 100) {
+				StdDraw.clear();
+				timeOffset += 100;
+			}
 			
 			if(time%1000 == 0) {
-				//StdDraw.clear();
-				StdDraw.line(prevX, prevY, time, sample);
+				StdDraw.line(prevX, prevY, time/1000 - timeOffset, sample);
 				StdDraw.show();
-				prevX = time;
+				prevX = time/1000 - timeOffset;
 				prevY = sample;
 			}
 
