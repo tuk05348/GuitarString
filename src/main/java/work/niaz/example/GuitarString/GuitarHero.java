@@ -9,6 +9,7 @@ public class GuitarHero {
 		String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 		
 		StdDraw.setTitle("Guitar Hero");
+		StdDraw.setCanvasSize(1000, 400);
 		StdDraw.enableDoubleBuffering();
 		StdDraw.setPenRadius(0.001);
         StdDraw.setPenColor(StdDraw.BLUE);
