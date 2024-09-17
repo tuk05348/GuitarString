@@ -5,7 +5,7 @@ package work.niaz.example.GuitarString;
  * Simulates the behavior of a guitar string when plucked by using the Ring Buffer API
  */
 
-public class GuitarString {
+public class GuitarString implements Instrument {
 	
 	private int samplingRate = 44100; //sampling rate
 	private RingBuffer ringBuffer;
@@ -29,7 +29,8 @@ public class GuitarString {
 	/**
 	 * Randomize the ring buffer of the guitar string with random values between 0.5 and -0.5
 	 */
-	void pluck() {
+	@Override
+	public void vibrate() {
 		while(!ringBuffer.isEmpty()) { //replace all existing items with random values
 			ringBuffer.dequeue();
 		}
@@ -42,7 +43,8 @@ public class GuitarString {
 	 * Step the simulation one unit forward and add to the end of the buffer the average of the first two
 	 * samples multiplied by a decay factor of 0.994, dequeue the first sample.
 	 */
-	void tic() {
+	@Override
+	public void tic() {
 		double item = ringBuffer.dequeue() + ringBuffer.peek(); //order matters, dequeue first, then peek, to get first two samples
 		ringBuffer.enqueue(item * 0.5 * 0.994); //enqueue average of two samples multiplied by decay factory
 		simTime++; //step simTime
@@ -53,7 +55,8 @@ public class GuitarString {
 	 * 
 	 * @return the value at the head of the ring buffer
 	 */
-	double sample() {
+	@Override
+	public double sample() {
 		return ringBuffer.peek();
 	}
 	
@@ -62,7 +65,8 @@ public class GuitarString {
 	 * 
 	 * @return the number of times tic has been called
 	 */
-	int time() {
+	@Override
+	public int time() {
 		return simTime;
 	}
 	

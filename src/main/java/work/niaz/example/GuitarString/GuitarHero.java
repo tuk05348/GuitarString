@@ -22,7 +22,7 @@ public class GuitarHero {
         double timeOffset = 0;
 
 		
-		GuitarString[] guitarStrings = new GuitarString[37];
+		Instrument[] guitarStrings = new Instrument[37];
 		for(int i=0; i<keyboard.length(); i++) {
 			guitarStrings[i] = new GuitarString(calculateFreq(i));
 		}
@@ -33,18 +33,17 @@ public class GuitarHero {
                 char key = StdDraw.nextKeyTyped();
                 int i = keyboard.indexOf(key);
                 if(i != -1) {
-                	guitarStrings[i].pluck();
-                	System.out.println(key + " " + i);
+                	guitarStrings[i].vibrate();
                 }
             }
 			
-			for (GuitarString g : guitarStrings) {
+			for (Instrument g : guitarStrings) {
 				sample += g.sample();
 			}
 			
 			StdAudio.play(sample);
 			
-			for (GuitarString g : guitarStrings) {
+			for (Instrument g : guitarStrings) {
 				g.tic();
 			}
 			

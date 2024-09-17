@@ -2,11 +2,11 @@ package work.niaz.example.GuitarString;
 
 public interface Instrument {
 	
-	public void pluck();
+	void vibrate();
 	
-	public void tic();
+	void tic();
 	
-	public double sample();
+	double sample();
 	
-	public double time();
+	int time();
 }
