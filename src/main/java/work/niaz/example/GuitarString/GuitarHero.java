@@ -24,7 +24,15 @@ public class GuitarHero {
 		
 		Instrument[] guitarStrings = new Instrument[37];
 		for(int i=0; i<keyboard.length(); i++) {
-			guitarStrings[i] = new GuitarString(calculateFreq(i));
+			if(i <= 12) {
+				guitarStrings[i] = new Drum(calculateFreq(i));
+			}
+			else if(i > 12 && i <= 25) {
+				guitarStrings[i] = new GuitarString(calculateFreq(i));
+			}
+			else {
+				guitarStrings[i] = new HarpString(calculateFreq(i));
+			}
 		}
 		
 		while(true) {
