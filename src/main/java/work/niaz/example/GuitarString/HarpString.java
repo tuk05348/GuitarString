@@ -26,8 +26,9 @@ public class HarpString implements Instrument {
 
 	@Override
 	public void tic() {
-		// TODO Auto-generated method stub
-		
+		double item = ringBuffer.dequeue() + ringBuffer.peek(); //order matters, dequeue first, then peek, to get first two samples
+		ringBuffer.enqueue(item * 0.5 * -0.997); //enqueue average of two samples multiplied by decay factory
+		simTime++; //step simTime	
 	}
 
 	@Override
@@ -37,7 +38,6 @@ public class HarpString implements Instrument {
 
 	@Override
 	public int time() {
-		// TODO Auto-generated method stub
 		return simTime;
 	}
 

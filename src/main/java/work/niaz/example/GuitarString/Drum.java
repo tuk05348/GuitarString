@@ -1,5 +1,7 @@
 package work.niaz.example.GuitarString;
 
+import java.util.Random;
+
 public class Drum implements Instrument {
 	
 	private int SAMPLING_RATE = 44100; //sampling rate
@@ -25,7 +27,12 @@ public class Drum implements Instrument {
 
 	@Override
 	public void tic() {
-		// TODO Auto-generated method stub
+		double item = ringBuffer.dequeue() + ringBuffer.peek(); //order matters, dequeue first, then peek, to get first two samples
+		Random random = new Random();
+		int num = random.nextBoolean() ? 1 : -1;
+		item *= num;
+		ringBuffer.enqueue(item * 0.5); //enqueue average of two samples multiplied by decay factory
+		simTime++; //step simTime
 		
 	}
 
