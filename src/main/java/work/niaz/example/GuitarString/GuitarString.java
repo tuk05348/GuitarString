@@ -7,13 +7,13 @@ package work.niaz.example.GuitarString;
 
 public class GuitarString implements Instrument {
 	
-	private int samplingRate = 44100; //sampling rate
+	private int SAMPLING_RATE = 44100; //sampling rate
 	private RingBuffer ringBuffer;
 	private int simTime;
 
 	public GuitarString(double frequency) { //create a new GuitarString with a given frequency
 		//divide the sampling rate by frequency and round up to the nearest integer
-		ringBuffer = new RingBuffer((int) Math.ceil(((double) samplingRate)/frequency));
+		ringBuffer = new RingBuffer((int) Math.ceil(((double) SAMPLING_RATE)/frequency));
 		while(!ringBuffer.isFull()) {
 			ringBuffer.enqueue(0);
 		}
