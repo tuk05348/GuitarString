@@ -15,8 +15,12 @@ public class Drum implements Instrument {
 
 	@Override
 	public void vibrate() {
-		// TODO Auto-generated method stub
-		
+		while(!ringBuffer.isEmpty()) { //replace all existing items with random values
+			ringBuffer.dequeue();
+		}
+		while(!ringBuffer.isFull()) { //if the buffer isn't full, fill in the rest of the buffer with random values
+			ringBuffer.enqueue(Math.random() - 0.5);
+		}		
 	}
 
 	@Override
@@ -27,14 +31,13 @@ public class Drum implements Instrument {
 
 	@Override
 	public double sample() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ringBuffer.peek();
 	}
 
 	@Override
 	public int time() {
 		// TODO Auto-generated method stub
-		return 0;
+		return simTime;
 	}
 
 }
