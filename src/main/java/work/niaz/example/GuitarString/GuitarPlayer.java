@@ -19,13 +19,14 @@ public class GuitarPlayer {
 		for(int i=0; i<keyboard.length(); i++) {
 			guitarStrings[i] = new GuitarString(calculateFreq(i));
 		}
-		
-		char c = args[0].charAt(0);
-		int i = keyboard.indexOf(c);
-		guitarStrings[i].vibrate();
-		while(true) {
-			StdAudio.play(guitarStrings[i].sample());
-			guitarStrings[i].tic();
+
+		for(int i=0; i<args[0].length(); i++) {
+			int j = keyboard.indexOf(args[0].charAt(i));
+			guitarStrings[j].vibrate();
+			for(int w = 0; w < 88200; w++) {
+				StdAudio.play(guitarStrings[j].sample());
+				guitarStrings[j].tic();
+			}
 		}
 	}
 	
