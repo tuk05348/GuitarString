@@ -1,5 +1,7 @@
 package work.niaz.example.GuitarString;
 
+import java.util.HashSet;
+
 import edu.princeton.cs.algs4.StdAudio;
 import edu.princeton.cs.algs4.StdDraw;
 
@@ -19,13 +21,21 @@ public class GuitarPlayer {
 		for(int i=0; i<keyboard.length(); i++) {
 			guitarStrings[i] = new GuitarString(calculateFreq(i));
 		}
+		HashSet<Instrument> played = new HashSet<>();
 
 		for(int i=0; i<args[0].length(); i++) {
 			int j = keyboard.indexOf(args[0].charAt(i));
 			guitarStrings[j].vibrate();
-			for(int w = 0; w < 88200; w++) {
-				StdAudio.play(guitarStrings[j].sample());
-				guitarStrings[j].tic();
+			played.add(guitarStrings[j]);
+			for(int w = 0; w < 22050; w++) {
+				double sample = 0;
+				for (Instrument instrument : played) {
+					sample += instrument.sample();
+				}
+				StdAudio.play(sample);
+				for (Instrument instrument : played) {
+					instrument.tic();
+				}
 			}
 		}
 	}
