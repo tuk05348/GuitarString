@@ -140,10 +140,20 @@ public class RingBuffer {
 		return last;
 	}
 	
+	/**
+	 * Returns the ring buffer as an array of doubles. Testing method only.
+	 * 
+	 * @return array of values in ring buffer
+	 */
 	public double[] getRingBuffer() {
 		return ringBuffer;
 	}
 	
+	/**
+	 * Returns the total usable length of the ring buffer. Testing method only.
+	 * 
+	 * @return usable length of ring buffer
+	 */
 	public int getLength() {
 		return length;
 	}

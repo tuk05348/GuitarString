@@ -27,7 +27,7 @@ public class GuitarPlayer {
 			int j = keyboard.indexOf(args[0].charAt(i));
 			guitarStrings[j].vibrate();
 			played.add(guitarStrings[j]);
-			for(int w = 0; w < 22050; w++) {
+			for(int w = 0; w < 44100; w++) {
 				double sample = 0;
 				for (Instrument instrument : played) {
 					sample += instrument.sample();

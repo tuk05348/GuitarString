@@ -3,22 +3,34 @@ package work.niaz.example.GuitarString;
 /**
  * Guitar String API
  * Simulates the behavior of a guitar string when plucked by using the Ring Buffer API
+ * Implements the Instrument Interface
  */
 
 public class GuitarString implements Instrument {
 	
 	private int SAMPLING_RATE = 44100; //sampling rate
-	private RingBuffer ringBuffer;
-	private int simTime;
-
+	private RingBuffer ringBuffer; //internal ring buffer
+	private int simTime; //internal simulation time tracker
+	
+	/**
+	 * Constructor to create a new GuitarString using a given frequency
+	 * 
+	 * @param frequency the frequency the GuitarString should play at
+	 */
 	public GuitarString(double frequency) { //create a new GuitarString with a given frequency
 		//divide the sampling rate by frequency and round up to the nearest integer
 		ringBuffer = new RingBuffer((int) Math.ceil(((double) SAMPLING_RATE)/frequency));
-		while(!ringBuffer.isFull()) {
+		while(!ringBuffer.isFull()) { //Initialize the guitar string buffer with zeroes
 			ringBuffer.enqueue(0);
 		}
 	}
 	
+	/**
+	 * Constructor to create a new GuitarString using an array of doubles to initialize the internal ring buffer with
+	 * For testing purposes
+	 * 
+	 * @param init array of doubles that are the starting values of the GuitarString's ring buffer
+	 */
 	public GuitarString(double[] init) { //create a new GuitarString with a given array
 		ringBuffer = new RingBuffer(init.length + 1); //create ring buffer
 		for(int i=0; i<init.length; i++) { //initialize ring buffer with the array
