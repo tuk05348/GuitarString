@@ -8,7 +8,8 @@ package work.niaz.example.GuitarString;
 
 public class GuitarString implements Instrument {
 	
-	private int SAMPLING_RATE = 44100; //sampling rate
+	private static int SAMPLING_RATE = 44100; //sampling rate
+	private static double DECAY_FACTOR = 0.994; //decay factor
 	private RingBuffer ringBuffer; //internal ring buffer
 	private int simTime; //internal simulation time tracker
 	
@@ -58,7 +59,7 @@ public class GuitarString implements Instrument {
 	@Override
 	public void tic() {
 		double item = ringBuffer.dequeue() + ringBuffer.peek(); //order matters, dequeue first, then peek, to get first two samples
-		ringBuffer.enqueue(item * 0.5 * 0.994); //enqueue average of two samples multiplied by decay factory
+		ringBuffer.enqueue(item * 0.5 * DECAY_FACTOR); //enqueue average of two samples multiplied by decay factory
 		simTime++; //step simTime
 	}
 	

@@ -10,7 +10,9 @@ import java.util.Random;
  */
 public class Drum implements Instrument {
 	
-	private int SAMPLING_RATE = 44100; //sampling rate
+	private static int SAMPLING_RATE = 44100; //sampling rate
+	private static double DECAY_FACTOR = 1;	//decay factor
+	private Random random;
 	private RingBuffer ringBuffer; //internal ring buffer
 	private int simTime; //simulation time tracker
 	
@@ -24,6 +26,7 @@ public class Drum implements Instrument {
 		while(!ringBuffer.isFull()) { //initialize it with zeroes
 			ringBuffer.enqueue(0);
 		}
+		random = new Random();
 	}
 
 	/**
@@ -47,10 +50,9 @@ public class Drum implements Instrument {
 	@Override
 	public void tic() {
 		double item = ringBuffer.dequeue() + ringBuffer.peek(); //order matters, dequeue first, then peek, to get first two samples
-		Random random = new Random();
 		int num = random.nextBoolean() ? 1 : -1;
 		item *= num;
-		ringBuffer.enqueue(item * 0.5); //enqueue average of two samples multiplied by decay factor of 1
+		ringBuffer.enqueue(item * 0.5 * DECAY_FACTOR); //enqueue average of two samples multiplied by decay factor of 1
 		simTime++; //step simTime
 		
 	}
