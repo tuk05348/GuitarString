@@ -42,9 +42,26 @@ public class GuitarPlayer {
 		HashSet<Instrument> played = new HashSet<>();
 
 		for(int i=0; i<line.length(); i++) {
-			int key = keyboard.indexOf(line.charAt(i));
-			guitarStrings[key].vibrate();
-			played.add(guitarStrings[key]);
+			if(line.charAt(i) == 'D') {
+				for(int k=i+1; k<i+3; k++) {
+					guitarStrings[keyboard.indexOf(line.charAt(k))].vibrate();
+					played.add(guitarStrings[keyboard.indexOf(line.charAt(k))]);
+				}
+				i += 2;
+			}
+			else if(line.charAt(i) == 'C') {
+				for(int k=i+1; k<i+4; k++) {
+					guitarStrings[keyboard.indexOf(line.charAt(k))].vibrate();
+					played.add(guitarStrings[keyboard.indexOf(line.charAt(k))]);
+				}
+				i += 3;
+			}
+			else {
+				int key = keyboard.indexOf(line.charAt(i));
+				guitarStrings[key].vibrate();
+				played.add(guitarStrings[key]);
+			}
+			
 			for(int j = 0; j < 44100; j++) {
 				double sample = 0;
 				for (Instrument instrument : played) {
@@ -59,7 +76,7 @@ public class GuitarPlayer {
 	}
 	
 	public static void main(String[] args) {
-		GuitarPlayer guitarPlayer = new GuitarPlayer("star.txt");
+		GuitarPlayer guitarPlayer = new GuitarPlayer("stairway.txt");
 		guitarPlayer.playMusic();
 	}
 }
