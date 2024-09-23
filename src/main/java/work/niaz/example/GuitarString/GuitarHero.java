@@ -35,7 +35,7 @@ public class GuitarHero {
 		
 		Instrument[] guitarStrings = new Instrument[37]; //Create an array of instruments, interface let's us plug and play any instrument
 		for(int i=0; i<keyboard.length(); i++) {
-			guitarStrings[i] = new GuitarString(calculateFreq(i));
+			guitarStrings[i] = new GuitarString(Tuning.calculateFreq(i));
 		}
 		
 		//while loop for playing sound
@@ -75,16 +75,6 @@ public class GuitarHero {
 			}
 
 		}
-	}
-	
-	/**
-	 * Calculates frequency using equal temperament
-	 * 
-	 * @param index index of the corresponding key in the keyboard string
-	 * @return Frequency associated with that key using equal temperament formula
-	 */
-	public static double calculateFreq(int index) {
-		return 440 * Math.pow(1.05956, index - 24);
 	}
 
 }

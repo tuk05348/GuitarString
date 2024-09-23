@@ -20,24 +20,20 @@ public class GuitarPlayer {
 		}
 	}
 	
-	public static double calculateFreq(int index) {
-		return 440 * Math.pow(1.05956, index - 24);
-	}
-	
-	public void playMusic() {
+	public void play() {
 		try {
-			Files.lines(Paths.get(path)).forEachOrdered(s -> play(s));
+			Files.lines(Paths.get(path)).forEachOrdered(s -> playLine(s));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private void play(String line) {
+	private void playLine(String line) {
 		String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 		
 		Instrument[] guitarStrings = new Instrument[37];
 		for(int i=0; i<keyboard.length(); i++) {
-			guitarStrings[i] = new GuitarString(calculateFreq(i));
+			guitarStrings[i] = new GuitarString(Tuning.calculateFreq(i));
 		}
 		HashSet<Instrument> played = new HashSet<>();
 
@@ -77,6 +73,6 @@ public class GuitarPlayer {
 	
 	public static void main(String[] args) {
 		GuitarPlayer guitarPlayer = new GuitarPlayer("stairway.txt");
-		guitarPlayer.playMusic();
+		guitarPlayer.play();
 	}
 }
