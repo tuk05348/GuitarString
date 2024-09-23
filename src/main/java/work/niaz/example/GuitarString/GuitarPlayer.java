@@ -87,6 +87,6 @@ public class GuitarPlayer {
 	
 	public static void main(String[] args) {
 		GuitarPlayer guitarPlayer = new GuitarPlayer("frere.txt");
-		guitarPlayer.play();
+		guitarPlayer.playAndRecord("frere.wav");
 	}
 }
