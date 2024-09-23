@@ -5,27 +5,41 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
+
+import org.w3c.dom.UserDataHandler;
 
 import edu.princeton.cs.algs4.StdAudio;
 
 public class GuitarPlayer {
-	private URI path;
+	private Path path;
 	public GuitarPlayer(String filename) {
 		try {
-			path = GuitarPlayer.class.getResource("/" + filename).toURI();
-		} catch (URISyntaxException e) {
+			path = Paths.get(System.getProperty("user.dir") + "/" + filename);
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	
 	public void play() {
 		try {
-			Files.lines(Paths.get(path)).forEachOrdered(s -> playLine(s));
+			Files.lines(path).forEachOrdered(s -> playLine(s));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void playAndRecord(String audioFileString) {
+		StdAudio.startRecording();
+		try {
+			Files.lines(path).forEachOrdered(s -> playLine(s));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		double[] audio = StdAudio.stopRecording();
+		StdAudio.save(audioFileString, audio);
 	}
 	
 	private void playLine(String line) {
@@ -72,7 +86,7 @@ public class GuitarPlayer {
 	}
 	
 	public static void main(String[] args) {
-		GuitarPlayer guitarPlayer = new GuitarPlayer("stairway.txt");
+		GuitarPlayer guitarPlayer = new GuitarPlayer("frere.txt");
 		guitarPlayer.play();
 	}
 }
