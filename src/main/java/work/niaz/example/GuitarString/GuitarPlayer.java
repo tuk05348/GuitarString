@@ -1,15 +1,10 @@
 package work.niaz.example.GuitarString;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
-
-import org.w3c.dom.UserDataHandler;
 
 import edu.princeton.cs.algs4.StdAudio;
 
@@ -43,6 +38,7 @@ public class GuitarPlayer {
 	}
 	
 	private void playLine(String line) {
+		int samplingRate = 44100;
 		String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 		
 		Instrument[] guitarStrings = new Instrument[37];
@@ -52,7 +48,13 @@ public class GuitarPlayer {
 		HashSet<Instrument> played = new HashSet<>();
 
 		for(int i=0; i<line.length(); i++) {
-			if(line.charAt(i) == 'D') {
+			if(line.charAt(i) == 'F') {
+				samplingRate = 22050;
+			}
+			else if(line.charAt(i) == 'S') {
+				samplingRate = 44100;
+			}
+			else if(line.charAt(i) == 'D') {
 				for(int k=i+1; k<i+3; k++) {
 					guitarStrings[keyboard.indexOf(line.charAt(k))].vibrate();
 					played.add(guitarStrings[keyboard.indexOf(line.charAt(k))]);
@@ -72,7 +74,7 @@ public class GuitarPlayer {
 				played.add(guitarStrings[key]);
 			}
 			
-			for(int j = 0; j < 44100; j++) {
+			for(int j = 0; j < samplingRate; j++) {
 				double sample = 0;
 				for (Instrument instrument : played) {
 					sample += instrument.sample();
@@ -87,6 +89,6 @@ public class GuitarPlayer {
 	
 	public static void main(String[] args) {
 		GuitarPlayer guitarPlayer = new GuitarPlayer("frere.txt");
-		guitarPlayer.playAndRecord("frere.wav");
+		guitarPlayer.play();
 	}
 }
