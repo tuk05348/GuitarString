@@ -12,13 +12,13 @@ import edu.princeton.cs.algs4.StdAudio;
 /**
  * 
  */
-public class PolyphonicGuitarPlayer {
+public class PolyphonicMusicPlayer {
 	
 	private long delay;
 	private int totalCount;
 	private String audioFileString;
 	
-	public PolyphonicGuitarPlayer(long delay, int totalCount, String audioFileString) {
+	public PolyphonicMusicPlayer(long delay, int totalCount, String audioFileString) {
 		this.delay = delay;
 		this.totalCount = totalCount;
 		this.audioFileString = audioFileString;
@@ -35,7 +35,7 @@ public class PolyphonicGuitarPlayer {
 		}
 	}
 	public static void main(String[] args) {
-		PolyphonicGuitarPlayer polyphonicGuitarPlayer = new PolyphonicGuitarPlayer(8, 3, "frere.wav");
-		polyphonicGuitarPlayer.play();
+		PolyphonicMusicPlayer polyphonicMusicPlayer = new PolyphonicMusicPlayer(8, 3, "frere.wav");
+		polyphonicMusicPlayer.play();
 	}
 }
