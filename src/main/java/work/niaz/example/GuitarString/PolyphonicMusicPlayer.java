@@ -71,12 +71,66 @@ public class PolyphonicMusicPlayer {
 	}
 	
 	/**
+	 * Updates the delay value with a new one
+	 * 
+	 * @param delay how long the new delay should be in seconds
+	 */
+	public void updateDelay(long delay) {
+		this.delay = delay;
+	}
+	
+	/**
+	 * Updates the melody with a new audio file
+	 * 
+	 * @param audioFileString new audio file to use for melody
+	 */
+	public void updateMelody(String audioFileString) {
+		this.melodyFileString = audioFileString;
+	}
+	
+	/**
+	 * Updates the existing harmony file with a new audio file
+	 * 
+	 * @param audioFileString new audio file to use for harmony
+	 */
+	public void updateHarmony(String audioFileString) {
+		this.harmonyFileString = audioFileString;
+	}
+	
+	/**
+	 * Converts a polyphonic track to a homophonic track with one melody and one harmony by adding a harmony and a new delay
+	 * 
+	 * @param audioFileString new audio file for the harmony track
+	 * @param delay new delay between melody and harmony
+	 */
+	public void addHarmony(String audioFileString, long delay) {
+		this.polyCheck = false;
+		this.delay = delay;
+		this.totalCount = 2;
+		this.harmonyFileString = audioFileString;
+	}
+	
+	/**
+	 * Converts a homophonic track to a polyphonic track with one melody played multiple times with a new delay added
+	 * 
+	 * @param totalCount total number of melodies to be played
+	 * @param delay new delay for the melodies to be offset
+	 */
+	public void removeHarmony(int totalCount, long delay) {
+		this.polyCheck = true;
+		this.delay = delay;
+		this.totalCount = totalCount;
+	}
+	
+	/**
 	 * Test the polyphonic music player by playing an audio track multiple times with a delay
 	 * 
 	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
 		PolyphonicMusicPlayer polyphonicMusicPlayer = new PolyphonicMusicPlayer(8, 3, "frere.wav");
+		//polyphonicMusicPlayer.play();
+		polyphonicMusicPlayer.addHarmony("stairway.wav", 3);
 		polyphonicMusicPlayer.play();
 	}
 }
