@@ -49,8 +49,10 @@ public class ElectricGuitarString implements Instrument {
 	public void tic() {
 		double item = ringBuffer.dequeue() + ringBuffer.peek(); //order matters, dequeue first, then peek, to get first two samples
 		item *= 0.5;
-		ringBuffer.enqueue(((1.97 * item) - distortion(item)) * DECAY_FACTOR); //enqueue average of two samples multiplied by decay factor
-		//System.out.println(ringBuffer.peek());
+		if(simTime%180 == 0) {
+			item += (0.7 * distortion(item));
+		}
+		ringBuffer.enqueue(item * DECAY_FACTOR); //enqueue average of two samples multiplied by decay factor
 		simTime++; //step simTime
 	}
 	
