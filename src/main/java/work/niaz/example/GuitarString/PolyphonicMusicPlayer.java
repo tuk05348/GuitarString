@@ -2,6 +2,8 @@ package work.niaz.example.GuitarString;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 import edu.princeton.cs.algs4.StdAudio;
 
 /**
@@ -122,15 +124,40 @@ public class PolyphonicMusicPlayer {
 		this.totalCount = totalCount;
 	}
 	
+	public void save(String mixFileString) {
+		if(this.polyCheck) {
+			
+		}
+		else {
+			double[] melody = StdAudio.read(this.melodyFileString);
+			double[] harmony = StdAudio.read(this.harmonyFileString);
+			int mixIndex = (int) (this.delay * 44100) - 1;
+			double[] mix = new double[melody.length];
+			System.out.println(melody.length + " " + harmony.length + " " + mixIndex + " " + mix.length);
+			for(int i=0; i < mix.length; i++) {
+				if(i < mixIndex) {
+					mix[i] = melody[i];
+				}
+				else if((i >= mixIndex) && (i < harmony.length-1+mixIndex)) {
+					mix[i] = melody[i] + harmony[i - mixIndex];
+				}
+				else {
+					mix[i] = melody[i];
+				}
+			}
+
+			StdAudio.save(mixFileString, mix);
+		}
+	}
+	
 	/**
 	 * Test the polyphonic music player by playing an audio track multiple times with a delay
 	 * 
 	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
-		PolyphonicMusicPlayer polyphonicMusicPlayer = new PolyphonicMusicPlayer(8, 3, "frere.wav");
-		//polyphonicMusicPlayer.play();
-		polyphonicMusicPlayer.addHarmony("stairway.wav", 3);
+		PolyphonicMusicPlayer polyphonicMusicPlayer = new PolyphonicMusicPlayer(3, "frere.wav", "stairway.wav");
 		polyphonicMusicPlayer.play();
+		//polyphonicMusicPlayer.save("mix.wav");
 	}
 }
