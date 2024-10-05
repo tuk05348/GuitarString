@@ -125,29 +125,43 @@ public class PolyphonicMusicPlayer {
 	}
 	
 	public void save(String mixFileString) {
+		double[] mix;
+		int delay = (int) (this.delay * 44100) - 1;
+		double[] melody = StdAudio.read(melodyFileString);
 		if(this.polyCheck) {
+			mix = mixMultipleMelodies(melody, delay);
+		}
+		else { //Currently only works for a melody longer than a harmony
+			double[] harmony = StdAudio.read(harmonyFileString);
+			mix = mixMelodyAndHarmony(melody, harmony, delay);
+		}
+		StdAudio.save(mixFileString, mix);
+	}
+	
+	private double[] mixMultipleMelodies(double[] melody, int delay) {
+		return new double[1];
+	}
+	
+	private double[] mixMelodyAndHarmony(double[] melody, double[] harmony, int delay) {
+		if (melody.length > 0){
 			
 		}
 		else {
-			double[] melody = StdAudio.read(this.melodyFileString);
-			double[] harmony = StdAudio.read(this.harmonyFileString);
-			int mixIndex = (int) (this.delay * 44100) - 1;
 			double[] mix = new double[melody.length];
-			System.out.println(melody.length + " " + harmony.length + " " + mixIndex + " " + mix.length);
+			System.out.println(melody.length + " " + harmony.length + " " + delay + " " + mix.length);
 			for(int i=0; i < mix.length; i++) {
-				if(i < mixIndex) {
+				if(i < delay) {
 					mix[i] = melody[i];
 				}
-				else if((i >= mixIndex) && (i < harmony.length-1+mixIndex)) {
-					mix[i] = melody[i] + harmony[i - mixIndex];
+				else if((i >= delay) && (i < harmony.length-1+delay)) {
+					mix[i] = melody[i] + harmony[i - delay];
 				}
 				else {
 					mix[i] = melody[i];
 				}
 			}
-
-			StdAudio.save(mixFileString, mix);
 		}
+		return new double[1];
 	}
 	
 	/**
