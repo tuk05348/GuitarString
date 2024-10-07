@@ -2,6 +2,7 @@ package work.niaz.example.GuitarString;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.print.DocFlavor.BYTE_ARRAY;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 
 import edu.princeton.cs.algs4.StdAudio;
@@ -139,16 +140,30 @@ public class PolyphonicMusicPlayer {
 	}
 	
 	private double[] mixMultipleMelodies(double[] melody, int delay) {
+		int length = (totalCount * melody.length) - ((totalCount - 1) * delay);
+		double[] mix = new double[length];
+		
 		return new double[1];
 	}
 	
 	private double[] mixMelodyAndHarmony(double[] melody, double[] harmony, int delay) {
-		if (melody.length > 0){
-			
+		double[] mix;
+		if (melody.length < (harmony.length + delay)){
+			mix = new double[harmony.length + delay];
+			for(int i=0; i < mix.length; i++) {
+				if(i < delay) {
+					mix[i] = melody[i];
+				}
+				else if((i >= delay) && (i < melody.length)) {
+					mix[i] = melody[i] + harmony[i - delay];
+				}
+				else {
+					mix[i] = harmony[i - delay];
+				}
+			}
 		}
 		else {
-			double[] mix = new double[melody.length];
-			System.out.println(melody.length + " " + harmony.length + " " + delay + " " + mix.length);
+			mix = new double[melody.length];
 			for(int i=0; i < mix.length; i++) {
 				if(i < delay) {
 					mix[i] = melody[i];
@@ -161,7 +176,7 @@ public class PolyphonicMusicPlayer {
 				}
 			}
 		}
-		return new double[1];
+		return mix;
 	}
 	
 	/**
@@ -170,8 +185,7 @@ public class PolyphonicMusicPlayer {
 	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
-		PolyphonicMusicPlayer polyphonicMusicPlayer = new PolyphonicMusicPlayer(3, "frere.wav", "stairway.wav");
+		PolyphonicMusicPlayer polyphonicMusicPlayer = new PolyphonicMusicPlayer(3, "stairway.wav", "star.wav");
 		polyphonicMusicPlayer.play();
-		//polyphonicMusicPlayer.save("mix.wav");
 	}
 }
