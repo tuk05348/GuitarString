@@ -140,10 +140,16 @@ public class PolyphonicMusicPlayer {
 	}
 	
 	private double[] mixMultipleMelodies(double[] melody, int delay) {
-		int length = (totalCount * melody.length) - ((totalCount - 1) * delay);
+		int length = (totalCount * melody.length) - ((totalCount - 1) * (melody.length - delay));
 		double[] mix = new double[length];
-		
-		return new double[1];
+		int index = 0;
+		for(int i=0; i<totalCount; i++) {
+			for(int j=0; j<melody.length; j++) {
+				mix[j+index] += melody[j];
+			}
+			index += delay;
+		}
+		return mix;
 	}
 	
 	private double[] mixMelodyAndHarmony(double[] melody, double[] harmony, int delay) {
@@ -185,7 +191,8 @@ public class PolyphonicMusicPlayer {
 	 * @param args command line arguments
 	 */
 	public static void main(String[] args) {
-		PolyphonicMusicPlayer polyphonicMusicPlayer = new PolyphonicMusicPlayer(3, "stairway.wav", "star.wav");
-		polyphonicMusicPlayer.play();
+		PolyphonicMusicPlayer polyphonicMusicPlayer = new PolyphonicMusicPlayer(8, 3, "frere.wav");
+		//polyphonicMusicPlayer.play();
+		polyphonicMusicPlayer.save("mix5.wav");
 	}
 }
