@@ -124,65 +124,83 @@ public class PolyphonicMusicPlayer {
 		this.delay = delay;
 		this.totalCount = totalCount;
 	}
-	
+	/**
+	 * Saves the current polyphonic music of the Player object to a file
+	 * File name must include .wav
+	 * @param mixFileString filename to save polyphonic music to, must include .wav format
+	 */
 	public void save(String mixFileString) {
-		double[] mix;
-		int delay = (int) (this.delay * 44100) - 1;
-		double[] melody = StdAudio.read(melodyFileString);
-		if(this.polyCheck) {
-			mix = mixMultipleMelodies(melody, delay);
+		int delay = (int) (this.delay * 44100) - 1; //Convert delay from seconds to samples, subtract 1 for zero-indexing
+		double[] mix; //create an array of double for the mixed samples
+		double[] melody = StdAudio.read(melodyFileString); //read the melody
+		if(this.polyCheck) { //if polyphonic, mix the same melody multiple times
+			mix = mixMelodyMultipleTimes(melody, delay);
 		}
-		else { //Currently only works for a melody longer than a harmony
-			double[] harmony = StdAudio.read(harmonyFileString);
+		else { //if homophonic mix the melody and harmony
+			double[] harmony = StdAudio.read(harmonyFileString); //read the harmony file
 			mix = mixMelodyAndHarmony(melody, harmony, delay);
 		}
-		StdAudio.save(mixFileString, mix);
+		StdAudio.save(mixFileString, mix); //save the mixed array of samples to a wav file
 	}
 	
-	private double[] mixMultipleMelodies(double[] melody, int delay) {
+	/**
+	 * Mixes the same melody multiple times with the given delay to save polyphonic music to a file
+	 * @param melody array of double of the samples of the melody file
+	 * @param delay delay in number of samples
+	 * @return array of double of new samples of the melody mixed with itself multiple times
+	 */
+	private double[] mixMelodyMultipleTimes(double[] melody, int delay) {
 		int length = (totalCount * melody.length) - ((totalCount - 1) * (melody.length - delay));
-		double[] mix = new double[length];
-		int index = 0;
-		for(int i=0; i<totalCount; i++) {
+		double[] mix = new double[length]; //create a new array of double
+		int start = 0; //index where each successive melody starts
+		for(int i=0; i<totalCount; i++) { //mix the melody the given number of times
 			for(int j=0; j<melody.length; j++) {
-				mix[j+index] += melody[j];
+				mix[j+start] += melody[j]; //add the value of melody to each index in mix to support mixing and superposition of samples
 			}
-			index += delay;
+			start += delay; //increment the start by delay which allows for mixing as we iterate over shared indices
 		}
 		return mix;
 	}
 	
+	/**
+	 * Mix a melody and harmony together to create homophonic music
+	 * @param melody array of double of samples of the melody
+	 * @param harmony array of double of samples of the harmony
+	 * @param delay number of samples by which to delay
+	 * @return array of double of the mixed samples of the melody and harmony
+	 */
 	private double[] mixMelodyAndHarmony(double[] melody, double[] harmony, int delay) {
-		double[] mix;
-		if (melody.length < (harmony.length + delay)){
-			mix = new double[harmony.length + delay];
-			for(int i=0; i < mix.length; i++) {
-				if(i < delay) {
+		double[] mix; //create the array of double
+		if (melody.length < (harmony.length + delay)){ //check if the melody is shorter than the harmony plus the delay
+			mix = new double[harmony.length + delay]; //if so, the new array will be the harmony length and delay as they fully contain it
+			for(int i=0; i < mix.length; i++) { //iterate across array
+				if(i < delay) { //before delay add only melody
 					mix[i] = melody[i];
 				}
-				else if((i >= delay) && (i < melody.length)) {
-					mix[i] = melody[i] + harmony[i - delay];
+				else if((i >= delay) && (i < melody.length)) { //between delay and length of melody add melody and harmony
+					mix[i] = melody[i] + harmony[i - delay]; //offset harmony by delay so we can start harmony index at zero
 				}
-				else {
+				else { //after the melody is finished, add only harmony
 					mix[i] = harmony[i - delay];
 				}
 			}
 		}
-		else {
-			mix = new double[melody.length];
-			for(int i=0; i < mix.length; i++) {
-				if(i < delay) {
+		else { //if the melody is equal or longer than the delay plus harmony
+			mix = new double[melody.length]; //create new array same length as melody
+			for(int i=0; i < mix.length; i++) { //iterate across new array
+				if(i < delay) { //if less than delay add only melody
 					mix[i] = melody[i];
 				}
-				else if((i >= delay) && (i < harmony.length-1+delay)) {
-					mix[i] = melody[i] + harmony[i - delay];
+				else if((i >= delay) && (i < harmony.length-1+delay)) { //if equal/greater than delay and between harmony
+					//length of harmony minus one to get index of harmony, add delay to get index relative to melody
+					mix[i] = melody[i] + harmony[i - delay]; //add melody and harmony
 				}
-				else {
+				else { //once harmony finishes, add only melody
 					mix[i] = melody[i];
 				}
 			}
 		}
-		return mix;
+		return mix; //return the new array
 	}
 	
 	/**
