@@ -7,16 +7,18 @@ public abstract class InstrumentHero {
 	protected String keyboard;
 	protected String name;
 	protected Instrument[] instruments;
+	
 	abstract void setUpVisualizer();
 	
-	public void play() {
+	public void startSession() {
 		setUpVisualizer();
+		//variables for drawing lines for animation
+		double prevX = 0;
+        double prevY = 0;
+        double timeOffset = 0;
+
 		while(true) {
-			//variables for drawing lines for animation
-	        double prevX = 0;
-	        double prevY = 0;
-	        double timeOffset = 0;
-			double sample = 0;
+	        double sample = 0;
 			if (StdDraw.hasNextKeyTyped()) {	//if a key is pressed, play the instrument that corresponds to the key
                 char key = StdDraw.nextKeyTyped();
                 int i = keyboard.indexOf(key);
