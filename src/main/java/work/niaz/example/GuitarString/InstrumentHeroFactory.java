@@ -15,6 +15,9 @@ public class InstrumentHeroFactory {
 		else if(type.equalsIgnoreCase("harp")) {
 			return new HarpHero();
 		}
+		else if(type.equalsIgnoreCase("electricguitarhero")) {
+			return new ElectricGuitarHero();
+		}
 		else {
 			throw new IllegalArgumentException();
 		}
