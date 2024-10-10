@@ -7,7 +7,11 @@ import edu.princeton.cs.algs4.StdDraw;
  * Guitar Hero
  * Creates a playable Guitar with keyboard keys mapped to GuitarStrings
  */
-public class GuitarHero {
+public class GuitarHero extends InstrumentHero {
+	
+	public GuitarHero() {
+		
+	}
 	
 	/**
 	 * Main method of GuitarHero, runs a loop to play notes associated with the keyboard and animate their frequencies in real time
@@ -26,6 +30,7 @@ public class GuitarHero {
         StdDraw.setXscale(0, 100);
         StdDraw.setYscale(-0.5, 0.5);
         StdDraw.point(0, 0);	//ensures a StdDraw window will always open when ran
+        StdDraw.text(50, -0.25, "Keyboard Mapping: " + keyboard);
         
         //variables for drawing lines for animation
         double prevX = 0;
@@ -64,6 +69,7 @@ public class GuitarHero {
 			if(time/1000 - timeOffset > 100) {	//if we hit the edge of the canvas, clear the canvas and increase the time offset
 				StdDraw.clear();
 				timeOffset += 100;
+				StdDraw.text(50, -0.25, "Keyboard Mapping: " + keyboard);
 			}
 			
 			if(time%1000 == 0) {	//every 1000 iterations of the loop
@@ -73,8 +79,14 @@ public class GuitarHero {
 				prevX = time/1000 - timeOffset;	//set prevX and prevY to the point on the end of the line
 				prevY = sample;
 			}
-
+			
 		}
+	}
+
+	@Override
+	void setUpVisualizer() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

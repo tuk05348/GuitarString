@@ -1,7 +1,5 @@
 package work.niaz.example.GuitarString;
 
-import java.text.StringCharacterIterator;
-
 import edu.princeton.cs.algs4.*;
 
 public class GuitarHeroLite {

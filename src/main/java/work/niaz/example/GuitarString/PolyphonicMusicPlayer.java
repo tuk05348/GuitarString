@@ -1,10 +1,6 @@
 package work.niaz.example.GuitarString;
 
 import java.util.concurrent.TimeUnit;
-
-import javax.print.DocFlavor.BYTE_ARRAY;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
 import edu.princeton.cs.algs4.StdAudio;
 
 /**
