@@ -7,11 +7,13 @@ public abstract class InstrumentHero {
 	protected String keyboard;
 	protected String name;
 	protected Instrument[] instruments;
+	protected FrequencyVisualizer visualizer;
 	
-	abstract void setUpVisualizer();
+	abstract void setupWindow();
 	
 	public void startSession() {
-		setUpVisualizer();
+		setupWindow();
+		visualizer = new FrequencyVisualizer();
 		//variables for drawing lines for animation
 		double prevX = 0;
         double prevY = 0;
@@ -47,10 +49,7 @@ public abstract class InstrumentHero {
 			
 			if(time%1000 == 0) {	//every 1000 iterations of the loop
 				//draw line on off-screen canvas, x-axis is time, the y-axis is the sound sample
-				StdDraw.line(prevX, prevY, time/1000 - timeOffset, sample);	
-				StdDraw.show();	//draw line to on-screen canvas
-				prevX = time/1000 - timeOffset;	//set prevX and prevY to the point on the end of the line
-				prevY = sample;
+				visualizer.plot(time/1000 - timeOffset, sample);
 			}
 			
 		}
