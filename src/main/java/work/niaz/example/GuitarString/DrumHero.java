@@ -14,7 +14,7 @@ public class DrumHero extends InstrumentHero {
 	}
 	
 	@Override
-	void setUpVisualizer() {
+	void setupWindow() {
 		StdDraw.setTitle(name + " Hero");
 		StdDraw.setCanvasSize(400, 400);
 		StdDraw.enableDoubleBuffering();	//enables real time animation

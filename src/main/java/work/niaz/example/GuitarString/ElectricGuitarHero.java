@@ -14,7 +14,7 @@ public class ElectricGuitarHero extends InstrumentHero {
 	}
 
 	@Override
-	public void setUpVisualizer() {
+	public void setupWindow() {
 		StdDraw.setTitle(name + " Hero");
 		StdDraw.setCanvasSize(1000, 400);
 		StdDraw.enableDoubleBuffering();	//enables real time animation

@@ -25,7 +25,7 @@ public class BandHero extends InstrumentHero {
 	}
 
 	@Override
-	void setUpVisualizer() {
+	void setupWindow() {
 		StdDraw.setTitle(name + " Hero");
 		StdDraw.setCanvasSize(1000, 400);
 		StdDraw.enableDoubleBuffering();	//enables real time animation
