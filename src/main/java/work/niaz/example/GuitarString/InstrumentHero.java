@@ -13,21 +13,13 @@ public abstract class InstrumentHero {
 	
 	public void startSession() {
 		setupWindow();
-		visualizer = new FrequencyVisualizer();
+		visualizer = new FrequencyVisualizer(keyboard, instruments);
 		//variables for drawing lines for animation
-		double prevX = 0;
-        double prevY = 0;
         double timeOffset = 0;
 
 		while(true) {
 	        double sample = 0;
-			if (StdDraw.hasNextKeyTyped()) {	//if a key is pressed, play the instrument that corresponds to the key
-                char key = StdDraw.nextKeyTyped();
-                int i = keyboard.indexOf(key);
-                if(i != -1) {
-                	instruments[i].vibrate();
-                }
-            }
+			visualizer.vibrateOnKeyPress();
 			
 			for (Instrument g : instruments) {	//calculate superposition of samples of all instruments
 				sample += g.sample();
