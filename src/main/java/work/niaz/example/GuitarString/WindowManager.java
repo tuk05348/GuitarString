@@ -9,8 +9,10 @@ public class WindowManager {
 	//required parameters
 	private int xScale;
 	private int yScale;
-	private String note;
 	//optional parameters
+	private String name;
+	private String note;
+	private Boolean noteCheck = false;
 	private int windowHeight;
 	private int windowLength;
 	private Color graphColor;
@@ -18,8 +20,10 @@ public class WindowManager {
 	public static class Builder{
 		private int xScale;
 		private int yScale;
-		private String note;
 		//optional parameters
+		private String name;
+		private String note;
+		private Boolean noteCheck;
 		private int windowHeight;
 		private int windowLength;
 		private Color graphColor;
@@ -34,9 +38,16 @@ public class WindowManager {
 			setDefaultValues();
 		}
 		
+		public Builder setName(String name) {
+			this.name = name;
+			StdDraw.setTitle(name);
+			return this;
+		}
+		
 		public Builder setNote(String note) {
 			this.note = note;
 			StdDraw.text(xScale/2, -yScale/2, note);
+			noteCheck = true;
 			return this;
 		}
 		
@@ -69,6 +80,7 @@ public class WindowManager {
 		xScale = builder.xScale;
 		yScale = builder.yScale;
 		note = builder.note;
+		noteCheck = builder.noteCheck;
 		windowHeight = builder.windowHeight;
 		windowLength = builder.windowLength;
 		graphColor = builder.graphColor;
@@ -76,6 +88,14 @@ public class WindowManager {
 	
 	public int getXScale() {
 		return xScale;
+	}
+	
+	public String getNote() {
+		return note;
+	}
+	
+	public WindowState returnNoteState() {
+		return new WindowState(this.noteCheck, note);
 	}
 	
 	public void close() {
