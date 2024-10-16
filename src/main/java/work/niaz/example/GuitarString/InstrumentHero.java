@@ -14,7 +14,7 @@ public abstract class InstrumentHero {
 	
 	
 	public void startSession() {
-		windowManager = new WindowManager(xScale, yScale, "Keyboard Mapping:" + keyboard);
+		windowManager = new WindowManager.Builder(yScale, xScale).build();
 		visualizer = new FrequencyVisualizer(keyboard, xScale);
 		//variables for drawing lines for animation
         double timeOffset = 0;
