@@ -58,6 +58,7 @@ public class WindowManager {
 		}
 		
 		public void setDefaultValues() {
+			StdDraw.point(0, 0);
 			StdDraw.setCanvasSize();
 			StdDraw.setPenRadius();
 			StdDraw.setPenColor();
@@ -75,6 +76,10 @@ public class WindowManager {
 	
 	public int getXScale() {
 		return xScale;
+	}
+	
+	public void close() {
+		StdDraw.close();
 	}
 
 }
