@@ -1,37 +1,35 @@
 package work.niaz.example.GuitarString;
 
-import edu.princeton.cs.algs4.StdAudio;
 import edu.princeton.cs.algs4.StdDraw;
 
 public class FrequencyVisualizer {
 	private double prevX;
 	private double prevY;
-	private double offset;
 	private String keyboard;
-	private Instrument[] instruments;
+	private int timeOffset;
+	private int canvasLength;
 	
-	public FrequencyVisualizer(String keyboard, Instrument[] instruments) {
+	public FrequencyVisualizer(String keyboard, int canvasLength) {
+		this.keyboard = keyboard;
 		this.prevX = 0;
 		this.prevY = 0;
-		this.offset = 0;
-		this.keyboard = keyboard;
-		this.instruments = instruments;
+		this.timeOffset = canvasLength;
+		this.canvasLength = canvasLength;
 	}
 	
-	public void vibrateOnKeyPress() {
-		if (StdDraw.hasNextKeyTyped()) {	//if a key is pressed, play the instrument that corresponds to the key
-            char key = StdDraw.nextKeyTyped();
-            int i = keyboard.indexOf(key);
-            if(i != -1) {
-            	instruments[i].vibrate();
-            }
-        }
-	}
 	
 	public void plot(double time, double sample) {
 		StdDraw.line(prevX, prevY, time, sample);
 		StdDraw.show();
 		prevX = time;
 		prevY = sample;
+	}
+	
+	public void clearCanvas(double time) {
+		if(time - this.timeOffset > this.canvasLength) {	//if we hit the edge of the canvas, clear the canvas and increase the time offset
+			this.timeOffset += this.canvasLength;
+			StdDraw.clear();
+			StdDraw.text(50, -0.25, "Keyboard Mapping: " + this.keyboard);
+		}
 	}
 }

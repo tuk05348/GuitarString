@@ -6,20 +6,29 @@ import edu.princeton.cs.algs4.StdDraw;
 public abstract class InstrumentHero {
 	protected String keyboard;
 	protected String name;
+	protected int xScale;
+	protected int yScale;
 	protected Instrument[] instruments;
 	protected FrequencyVisualizer visualizer;
+	protected WindowManager windowManager;
 	
-	abstract void setupWindow();
 	
 	public void startSession() {
-		setupWindow();
-		visualizer = new FrequencyVisualizer(keyboard, instruments);
+		windowManager = new WindowManager(xScale, yScale, "Keyboard Mapping:" + keyboard);
+		visualizer = new FrequencyVisualizer(keyboard, xScale);
 		//variables for drawing lines for animation
         double timeOffset = 0;
 
 		while(true) {
 	        double sample = 0;
-			visualizer.vibrateOnKeyPress();
+	        
+	        if (StdDraw.hasNextKeyTyped()) {	//if a key is pressed, play the instrument that corresponds to the key
+	            char key = StdDraw.nextKeyTyped();
+	            int i = keyboard.indexOf(key);
+	            if(i != -1) {
+	            	instruments[i].vibrate();
+	            }
+	        }
 			
 			for (Instrument g : instruments) {	//calculate superposition of samples of all instruments
 				sample += g.sample();
@@ -33,11 +42,7 @@ public abstract class InstrumentHero {
 			
 			double time = instruments[0].time();	//get current simulation time
 			
-			if(time/1000 - timeOffset > 100) {	//if we hit the edge of the canvas, clear the canvas and increase the time offset
-				StdDraw.clear();
-				timeOffset += 100;
-				StdDraw.text(50, -0.25, "Keyboard Mapping: " + keyboard);
-			}
+			visualizer.clearCanvas(time);
 			
 			if(time%1000 == 0) {	//every 1000 iterations of the loop
 				//draw line on off-screen canvas, x-axis is time, the y-axis is the sound sample
