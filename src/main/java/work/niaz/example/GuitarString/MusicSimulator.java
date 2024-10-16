@@ -8,14 +8,17 @@ public class MusicSimulator {
 	private FrequencyVisualizer frequencyVisualizer;
 	private String keyboard;
 	private Instrument[] instruments;
+	private String note;
  	
-	public MusicSimulator(String keyboard, int xScale, Instrument[] instruments) {
+	public MusicSimulator(String keyboard, int xScale, int yScale, Instrument[] instruments, WindowState windowState) {
 		this.keyboard = keyboard;
 		this.instruments = instruments;
-		frequencyVisualizer = new FrequencyVisualizer(this.keyboard, xScale);
+		frequencyVisualizer = new FrequencyVisualizer(xScale, yScale);
+		this.note = windowState.getNote();
 	}
+
 	
-	public void startSession() {
+	public void play() {
 		double timeOffset = 0;
 		while(true) {
 	        double sample = 0;
@@ -40,7 +43,7 @@ public class MusicSimulator {
 			
 			double time = instruments[0].time();	//get current simulation time
 			
-			frequencyVisualizer.clearCanvas(time);
+			frequencyVisualizer.clearCanvas(time, note);
 			
 			if(time%1000 == 0) {	//every 1000 iterations of the loop
 				//draw line on off-screen canvas, x-axis is time, the y-axis is the sound sample
