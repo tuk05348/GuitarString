@@ -6,10 +6,14 @@ import edu.princeton.cs.algs4.StdDraw;
  * Guitar Hero
  * Creates a playable Guitar with keyboard keys mapped to GuitarStrings
  */
-public class GuitarHero extends InstrumentHero {
+public class GuitarHero implements InstrumentHero {
+	
+	private String name;
+	private String keyboard;
+	private Instrument[] instruments;
 	
 	public GuitarHero() {
-		name = "Guitar";
+		name = "Guitar Hero";
 		keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 		instruments = new Instrument[keyboard.length()]; //Create an array of instruments, interface let's us plug and play any instrument
 		for(int i=0; i<keyboard.length(); i++) {
@@ -18,16 +22,17 @@ public class GuitarHero extends InstrumentHero {
 	}
 	
 	@Override
-	void setupWindow() {
-		StdDraw.setTitle(name + " Hero");
-		StdDraw.setCanvasSize(1000, 400);
-		StdDraw.enableDoubleBuffering();	//enables real time animation
-		StdDraw.setPenRadius(0.001);
-        StdDraw.setPenColor(StdDraw.BLUE);
-        StdDraw.setXscale(0, 100);
-        StdDraw.setYscale(-0.5, 0.5);
-        StdDraw.point(0, 0);	//ensures a StdDraw window will always open when ran
-        StdDraw.text(50, -0.25, "Keyboard Mapping: " + keyboard);
+	public void startSession() {
+		WindowManager windowManager = new WindowManager
+				.Builder(100, 0.5)
+				.setName(name)
+				.setNote("Keyboard Mapping:" + keyboard)
+				.setCanvasDimensions(1000, 400)
+				.setGraphColor(StdDraw.BLUE)
+				.setPenRadius(0.001)
+				.build();
+		MusicSimulator musicSimulator = new MusicSimulator(keyboard, instruments, windowManager.returnNoteState());
+		musicSimulator.play();
 	}
 	
 	public static void main(String[] args) {

@@ -2,10 +2,14 @@ package work.niaz.example.GuitarString;
 
 import edu.princeton.cs.algs4.StdDraw;
 
-public class DrumHero extends InstrumentHero {
+public class DrumHero implements InstrumentHero {
 
+	private String name;
+	private String keyboard;
+	private Instrument[] instruments;
+	
 	public DrumHero() {
-		name = "Drum";
+		name = "Drum Hero";
 		keyboard = "qw45yuio-=xc";
 		instruments = new Instrument[keyboard.length()];
 		for(int i=0; i < 2*keyboard.length(); i += 2) {
@@ -13,17 +17,19 @@ public class DrumHero extends InstrumentHero {
 		}
 	}
 	
+
 	@Override
-	void setupWindow() {
-		StdDraw.setTitle(name + " Hero");
-		StdDraw.setCanvasSize(400, 400);
-		StdDraw.enableDoubleBuffering();	//enables real time animation
-		StdDraw.setPenRadius(0.001);
-        StdDraw.setPenColor(StdDraw.RED);
-        StdDraw.setXscale(0, 100);
-        StdDraw.setYscale(-0.5, 0.5);
-        StdDraw.point(0, 0);	//ensures a StdDraw window will always open when ran
-        StdDraw.text(50, -0.25, "Keyboard Mapping: " + keyboard);
+	public void startSession() {
+		WindowManager windowManager = new WindowManager
+				.Builder(100, 0.5)
+				.setName(name)
+				.setNote("Keyboard Mapping:" + keyboard)
+				.setCanvasDimensions(400, 400)
+				.setGraphColor(StdDraw.FUSCIA)
+				.setPenRadius(0.001)
+				.build();
+		MusicSimulator musicSimulator = new MusicSimulator(keyboard, instruments, windowManager.returnNoteState());
+		musicSimulator.play();
 	}
 	
 	public static void main(String[] args) {
