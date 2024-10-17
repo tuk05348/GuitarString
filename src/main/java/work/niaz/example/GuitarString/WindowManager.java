@@ -7,8 +7,8 @@ import edu.princeton.cs.algs4.StdDraw;
 public class WindowManager {
 	
 	//required parameters
-	private int xScale;
-	private int yScale;
+	private double xScale;
+	private double yScale;
 	//optional parameters
 	private String name;
 	private String note;
@@ -16,10 +16,11 @@ public class WindowManager {
 	private int windowHeight;
 	private int windowLength;
 	private Color graphColor;
+	private double penRadius;
 	
 	public static class Builder{
-		private int xScale;
-		private int yScale;
+		private double xScale;
+		private double yScale;
 		//optional parameters
 		private String name;
 		private String note;
@@ -27,12 +28,12 @@ public class WindowManager {
 		private int windowHeight;
 		private int windowLength;
 		private Color graphColor;
+		private double penRadius;
 		
-		
-		public Builder(int xMax, int yMax) {
+		public Builder(double xMax, double yMax) {
+			StdDraw.enableDoubleBuffering();
 			this.xScale = xMax;
 			this.yScale = yMax;
-			StdDraw.enableDoubleBuffering();
 			StdDraw.setXscale(0, xScale);
 			StdDraw.setYscale(-yScale, yScale);
 			setDefaultValues();
@@ -64,12 +65,17 @@ public class WindowManager {
 			return this;
 		}
 		
+		public Builder setPenRadius(double penRadius) {
+			this.penRadius = penRadius;
+			StdDraw.setPenRadius(penRadius);
+			return this;
+		}
+		
 		public WindowManager build() {
 			return new WindowManager(this);
 		}
 		
 		public void setDefaultValues() {
-			StdDraw.point(0, 0);
 			StdDraw.setCanvasSize();
 			StdDraw.setPenRadius();
 			StdDraw.setPenColor();
@@ -84,18 +90,11 @@ public class WindowManager {
 		windowHeight = builder.windowHeight;
 		windowLength = builder.windowLength;
 		graphColor = builder.graphColor;
-	}
-	
-	public int getXScale() {
-		return xScale;
-	}
-	
-	public String getNote() {
-		return note;
+		penRadius = builder.penRadius;
 	}
 	
 	public WindowState returnNoteState() {
-		return new WindowState(this.noteCheck, note);
+		return new WindowState(this.noteCheck, this.note, this.xScale, this.yScale);
 	}
 	
 	public void close() {
