@@ -5,31 +5,22 @@ import edu.princeton.cs.algs4.StdDraw;
 public class FrequencyVisualizer {
 	private double prevX;
 	private double prevY;
-	private int timeOffset;
-	private int xScale;
-	private int yScale;
-	
-	public FrequencyVisualizer(int xScale) {
-		this.prevX = 0;
-		this.prevY = 0;
-		this.timeOffset = xScale;
-		this.xScale = xScale;
-	}
+	private double timeOffset;
+	private double xScale;
+	private double yScale;
 
-	
-	public FrequencyVisualizer(int xScale, int yScale) {
+	public FrequencyVisualizer(double xScale, double yScale) {
 		this.prevX = 0;
 		this.prevY = 0;
-		this.timeOffset = xScale;
+		this.timeOffset = 0;
 		this.xScale = xScale;
 		this.yScale = yScale;
 	}
 	
-	
 	public void plot(double time, double sample) {
-		StdDraw.line(prevX, prevY, time, sample);
+		StdDraw.line(prevX, prevY, time - this.timeOffset, sample);
 		StdDraw.show();
-		prevX = time;
+		prevX = time - this.timeOffset;
 		prevY = sample;
 	}
 	
