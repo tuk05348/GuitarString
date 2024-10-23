@@ -1,5 +1,10 @@
 package work.niaz.example.GuitarString;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.rowset.JoinRowSet;
+
 import edu.princeton.cs.algs4.StdDraw;
 
 /**
@@ -21,6 +26,19 @@ public class GuitarHero implements InstrumentHero {
 		}
 	}
 	
+	public GuitarHero(String providedKeyboard) {
+		name = "Guitar Hero";
+		keyboard = providedKeyboard;
+		List<Instrument> intermediary = new ArrayList<Instrument>();
+		for(int i=0; i<keyboard.length(); i++) {
+			if(keyboard.charAt(i) != '_') {
+				intermediary.add(new GuitarString(Tuning.calculateFreq(i)));
+			}
+		}
+		instruments = new Instrument[intermediary.size()];
+		intermediary.toArray(instruments);
+	}
+	
 	@Override
 	public void startSession() {
 		WindowManager windowManager = new WindowManager
@@ -36,7 +54,7 @@ public class GuitarHero implements InstrumentHero {
 	}
 	
 	public static void main(String[] args) {
-		GuitarHero guitarHero = new GuitarHero();
+		GuitarHero guitarHero = new GuitarHero("q___________________________________ ");
 		guitarHero.startSession();
 	}
 

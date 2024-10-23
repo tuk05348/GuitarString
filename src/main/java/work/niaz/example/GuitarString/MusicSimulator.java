@@ -10,8 +10,15 @@ public class MusicSimulator {
 	private Instrument[] instruments;
 	private String note;
  	
-	public MusicSimulator(String keyboard, Instrument[] instruments, WindowState windowState) {
-		this.keyboard = keyboard;
+	public MusicSimulator(String providedKeyboard, Instrument[] instruments, WindowState windowState) {
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<providedKeyboard.length(); i++) {
+			char c= providedKeyboard.charAt(i);
+			if(c != '_') {
+				sb.append(c);
+			}
+		}
+		this.keyboard = sb.toString();
 		this.instruments = instruments;
 		frequencyVisualizer = new FrequencyVisualizer(windowState.getXScale(), windowState.getYScale());
 		this.note = windowState.getNote();
