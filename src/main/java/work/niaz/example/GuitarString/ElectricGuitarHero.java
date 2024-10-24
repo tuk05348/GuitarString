@@ -1,5 +1,8 @@
 package work.niaz.example.GuitarString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.princeton.cs.algs4.StdDraw;
 
 public class ElectricGuitarHero implements InstrumentHero {
@@ -15,6 +18,18 @@ public class ElectricGuitarHero implements InstrumentHero {
 		for(int i=0; i<keyboard.length(); i++) {
 			instruments[i] = new ElectricGuitarString(Tuning.calculateFreq(i));
 		}
+	}
+	
+	public ElectricGuitarHero(String providedKeyboard) {
+		name = "Electric Guitar Hero";
+		keyboard = providedKeyboard;
+		List<Instrument> intermediary = new ArrayList<Instrument>();
+		for(int i=0; i<keyboard.length(); i++) {
+			if(keyboard.charAt(i) != '_') {
+				intermediary.add(new ElectricGuitarString(Tuning.calculateFreq(i)));
+			}
+		}
+		instruments = intermediary.toArray(new Instrument[0]);
 	}
 	
 	@Override

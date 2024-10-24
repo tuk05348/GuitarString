@@ -35,8 +35,7 @@ public class GuitarHero implements InstrumentHero {
 				intermediary.add(new GuitarString(Tuning.calculateFreq(i)));
 			}
 		}
-		instruments = new Instrument[intermediary.size()];
-		intermediary.toArray(instruments);
+		instruments = intermediary.toArray(new Instrument[0]);
 	}
 	
 	@Override
